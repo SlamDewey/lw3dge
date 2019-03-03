@@ -5,10 +5,29 @@ import org.lwjgl.Version;
 import lw3dge.game.Config;
 import lw3dge.game.Log;
 
+/**
+ * A class for the rest of the engine to deal with GLFW. This Manager controls
+ * most of the elements of the Display class and hosts that functionality as
+ * public static wrappers of functionality already defined in the Display class.
+ * 
+ * @see lw3dge.graphics.Display
+ * 
+ * @author Jared
+ *
+ */
 public class DisplayManager {
-
+	
+	/**
+	 * This instance of the Display class and GLFW context.
+	 */
 	private static Display display;
+	/**
+	 * The instance of the Loader class, for loading data into VAO's and VBO's.
+	 */
 	public static Loader loader;
+	/**
+	 * The instance of the MasterRenderer class for handling render control.
+	 */
 	private static MasterRenderer mr;
 
 	/**
@@ -20,7 +39,7 @@ public class DisplayManager {
 	}
 
 	/**
-	 * Initializes the Display and Display Manager
+	 * Initializes the Display and Display Manager.
 	 * 
 	 * @see lw3dge.graphics.DisplayManager#init()
 	 * @see lw3dge.graphics.Display#init()
@@ -78,7 +97,7 @@ public class DisplayManager {
 	/**
 	 * A public static method to center the mouse in the window
 	 * 
-	 * @see graphics.Display#centerCursor();
+	 * @see lw3dge.graphics.Display#centerCursor()
 	 */
 	public static void centerCursor() {
 		Display.centerCursor();

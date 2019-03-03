@@ -27,7 +27,9 @@ import lw3dge.graphics.models.RawModel;
  * functionality of this class is to parse data into a format that is more
  * easily understandable by OpenGL/GLFW. Therefore it is more of a library than
  * a class, however it must actually be an object and must be instantiated
- * because some methods need an open OpenGL context to function correctly.
+ * because this both uses OpenGL methods that require an active context, and
+ * manages a list of VAO, VBO and Texture pointers that MUST be deleted on
+ * shutdown (java does not garbage collect these).
  * 
  * This class should not be reused for anything fancy, and therefore I will not
  * spend much time detailing these functions with comments.
@@ -55,7 +57,7 @@ public class Loader {
 		try {
 			BufferedImage textureBI = ImageIO.read(new File(fileName));
 			texture = loadTexture(textureBI);
-			//MipMap
+			// MipMap
 			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, Config.MIP_MAP_CONSTANT);
@@ -160,9 +162,8 @@ public class Loader {
 	}
 
 	/*
-	 * **************************************
 	 * Only Helper Functions Below
-	 * *************************************/
+	 *************************************/
 
 	private int createVAO() {
 		int vaoID = GL30.glGenVertexArrays();

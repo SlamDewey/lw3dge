@@ -15,7 +15,7 @@ import lw3dge.components.math.Matrix4f;
 import lw3dge.components.math.Vector3f;
 
 /**
- * Represents a basic ShaderProgram and all abstracted necessities 
+ * This class represents a basic ShaderProgram and all abstracted necessities
  * Credit to ThinMatrix and his OpenGL Tutorials
  * 
  * @author Jared

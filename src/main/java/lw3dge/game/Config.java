@@ -24,5 +24,5 @@ public class Config {
 	public static final String ABS_PROJ_PATH = "Z:/game/lw3dge/";
 	public static final String REL_PROJ_PATH = "src/main/java/lw3dge/";
 	public static final String ABS_ENGINE_PATH = ABS_PROJ_PATH + REL_PROJ_PATH;
-	public static final String ABS_RESOURCE_PATH = ABS_PROJ_PATH + "src/main/resources/";
+	public static final String ABS_RESOURCE_PATH = ABS_PROJ_PATH + "src/test/resources/";
 }

@@ -6,7 +6,8 @@ import lw3dge.components.physics.Transform;
 
 /**
  * A series of public static mathematics functions for use as a quick static
- * math library throughout the engine
+ * math library throughout the engine. Not to be used by Users unless you have a
+ * great understanding of their usage. Otherwise just let them be.
  * 
  * @author Jared Massa
  */
@@ -19,7 +20,8 @@ public final class Maths { // its final because it doesn't matter and who
 	 * FUNCTIONS TO DISCOURAGE OUTSIDE USAGE: THEY ARE MADE FOR VERY SPECIFIC
 	 * PURPOSES.
 	 * 
-	 * That being said they aren't that hard to understand so feel free to read them
+	 * That being said they aren't that hard to understand so feel free to read
+	 * them
 	 * 
 	 */
 	public static Matrix4f createTransformationMatrix(Vector3f translation, Vector3f scale) {

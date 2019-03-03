@@ -17,10 +17,31 @@ import lw3dge.graphics.models.TexturedModel;
 import lw3dge.graphics.shaders.StaticShader;
 import lw3dge.graphics.textures.ModelTexture;
 
+/**
+ * A rendering class controlled by the MasterRenderer for rendering
+ * GraphicalEntities to the screen.
+ * 
+ * @see lw3dge.graphics.MasterRenderer
+ * 
+ * @author Jared Massa
+ *
+ */
 public class EntityRenderer {
 
+	/**
+	 * The shader for entities
+	 */
 	private StaticShader shader;
-	
+
+	/**
+	 * Generate a new EntityRenderer with a given shader program and projection
+	 * matrix.
+	 * 
+	 * @param shader
+	 *            the shader program instructions on drawing entities.
+	 * @param projectionMatrix
+	 *            a 4x4 matrix for calculating depth projections.
+	 */
 	public EntityRenderer(StaticShader shader, Matrix4f projectionMatrix) {
 		this.shader = shader;
 		shader.start();
@@ -41,7 +62,7 @@ public class EntityRenderer {
 	 * Render a set of entities based on the textured model of each entity
 	 * 
 	 * @param entities
-	 *            a HashMap using TexturedModels as the key (to be rendered)
+	 *            a HashMap using TexturedModels as the key -(to be rendered)
 	 */
 	public void render(Map<TexturedModel, List<GraphicalEntity>> entities) {
 		for (TexturedModel model : entities.keySet()) {
@@ -56,9 +77,9 @@ public class EntityRenderer {
 	}
 
 	/*
-	 * **************************************
 	 * Only Helper Functions Below
-	 * *************************************/
+	 *************************************/
+
 	private void prepareTexturedModel(TexturedModel texturedModel) {
 		RawModel rawModel = texturedModel.getRawModel();
 		GL30.glBindVertexArray(rawModel.getVaoID());

@@ -31,7 +31,7 @@ public class TickThread extends Thread implements Runnable {
 	 * The work for this thread to do. It will tick the scene at a constant rate
 	 * as long as Game.RUNNING is true.
 	 * 
-	 * @see game.Scene#tick()
+	 * @see lw3dge.game.Scene#tick()
 	 */
 	@Override
 	public void run() {

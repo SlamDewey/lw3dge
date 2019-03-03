@@ -36,7 +36,7 @@ public class Display {
 	 * Initialize this Display and GLFW Context and attempt to center window
 	 * 
 	 * @throws IllegalStateException
-	 *             upon failed GLFW_INIT
+	 *             upon failed GLFW initialization
 	 * @throws RuntimeException
 	 *             upon failed window pointer creation
 	 */
@@ -75,12 +75,13 @@ public class Display {
 	}
 
 	/**
-	 * Enter the graphics loop for this display
+	 * Enter the graphics loop for this display. We will render entities, poll
+	 * events, and swap buffers.
 	 * 
 	 * @param loader
-	 *            the generated Loader from initialization
+	 *            the generated {@link Loader} from initialization
 	 * @param mr
-	 *            the MasterRenderer from initialization
+	 *            the {@link MasterRenderer} from initialization
 	 * @see lw3dge.graphics.Loader
 	 * @see lw3dge.graphics.MasterRenderer
 	 * @see lw3dge.graphics.DisplayManager#init()

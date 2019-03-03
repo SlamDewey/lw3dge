@@ -7,12 +7,18 @@ package lw3dge.graphics.models;
  * @author Jared Massa
  */
 public final class RawModel {
-
+	
+	/**
+	 * The pointer to the VAO for OpenGL
+	 */
 	private int vaoID;
+	/**
+	 * The length of a portion in the VAO buffer
+	 */
 	private int vertexCount;
 
 	/**
-	 * Create a RawModel referencing a VAO
+	 * Create a new RawModel to reference a specified VAO
 	 * 
 	 * @param vaoID
 	 *            the VAO pointer
@@ -34,7 +40,7 @@ public final class RawModel {
 	}
 
 	/**
-	 * get the vertex count
+	 * Get the vertex count
 	 * 
 	 * @return the vertex count
 	 */

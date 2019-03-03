@@ -25,34 +25,42 @@ public abstract class ExampleGame extends Game {
 	 * public static void main(String[] args) { new ExampleGame(); }
 	 */
 
-	/**
+	/*
 	 * As a class extension, you are forced to call super(), so consider
 	 * yourself lucky I don't have to explain how important it is!
-	 * 
+	 *
 	 * In terms of the other instructions in this constructor, treat them as
 	 * English (as stated above) except for run(). Run() is a method defined in
 	 * the super class Game, and MUST be called at the end of your constructor.
 	 * (This is what actually starts up the game after initialization!)
+	 */
+	/**
+	 * This Constructor serves as an example on formatting Game Subclass
+	 * Constructors. Read the code.
 	 * 
-	 * @see game.Game#run()
+	 * @see lw3dge.game.Game#run()
 	 */
 	public ExampleGame() {
-		super();	//yeah you gotta do this
+		super(); // yeah you gotta do this
 		init_textures_and_models(); // I recommend to do this statically in
 									// another class and just call Models.init()
 									// for example.
-		generate_initial_game_objects();	//use your loaded models to generate some game objects/entities
-		run();		//you need to call this method, or else the GLFW context will realize it isn't looping and end program
+		generate_initial_game_objects(); // use your loaded models to generate
+											// some game objects/entities
+		run(); // you need to call this method, or else the GLFW context will
+				// realize it isn't looping and end program
 	}
 
+	/*
+	 * This is called upon game initialization and is VERY IMPORTANT. Without
+	 * setting up a camera the engine will crash, so at the very least generate
+	 * a camera with no Transform data until you can do better. Check the code
+	 * inside the method for examples.
+	 */
 	/**
-	 * Override the setupCamera function from the Game class. This is called
-	 * upon game initialization and is VERY IMPORTANT. Without setting up a
-	 * camera the engine will crash, so at the very least generate a camera with
-	 * no Transform data until you can do better. Check the code inside the
-	 * method for examples.
+	 * Override the setupCamera function from the Game class.
 	 * 
-	 * @see game.Game#setupCamera()
+	 * @see lw3dge.game.Game#setupCamera()
 	 * 
 	 * @see lw3dge.game.cameras.Camera
 	 */

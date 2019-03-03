@@ -11,23 +11,35 @@ import lw3dge.graphics.models.TexturedModel;
  * 
  * @author Jared Massa
  * @see lw3dge.components.physics.Transform
- * @see graphics.models.TexturedModel
+ * @see lw3dge.graphics.models.TexturedModel
  */
 public class GraphicalEntity implements Updatable {
 
-	protected TexturedModel model;
-	protected Transform transform;
-	protected Vector3f scale;
-
+	/**
+	 * A scale with no variation in any axis
+	 */
 	public static final Vector3f NORMAL_SCALE = new Vector3f(1, 1, 1);
+
+	/**
+	 * The instructions on how to draw this object stored in a {@link TexturedModel}
+	 */
+	protected TexturedModel model;
+	/**
+	 * The instructions on where to draw this object stored in a {@link Transform}
+	 */
+	public Transform transform;
+	/**
+	 * The instructions on how big to draw this object
+	 */
+	protected Vector3f scale;
 
 	/**
 	 * Create a new GraphicalEntity with these parameters
 	 * 
 	 * @param model
-	 *            the TexturedModel to represent this basic entity
+	 *            the {@link TexturedModel} to represent this basic entity
 	 * @param transform
-	 *            the transform for this specific entity
+	 *            the {@link Transform} for this specific entity
 	 * @param scale
 	 *            the scale of this specific entity (graphical scale)
 	 */
@@ -47,7 +59,7 @@ public class GraphicalEntity implements Updatable {
 	}
 
 	/**
-	 * Update the TexturedModel for this entity
+	 * Update the {@link TexturedModel} for this entity
 	 * 
 	 * @param model
 	 *            the new model
@@ -56,9 +68,10 @@ public class GraphicalEntity implements Updatable {
 		this.model = model;
 	}
 
-	/****************************************
+	/*
 	 * Only Getters below
-	 ****************************************/
+	 ***************************************/
+
 	public TexturedModel getTexturedModel() {
 		return model;
 	}

@@ -20,7 +20,7 @@ public abstract class Game {
 	/**
 	 * Initializes the Engine. Entry Point defined in Game subclass.
 	 * 
-	 * @see game.Game#init()
+	 * @see lw3dge.game.Game#init()
 	 * @see lw3dge.graphics.DisplayManager#start()
 	 * @see lw3dge.graphics.DisplayManager#loop()
 	 * @see lw3dge.graphics.DisplayManager#shutdown()

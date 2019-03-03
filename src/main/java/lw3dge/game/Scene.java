@@ -28,11 +28,10 @@ public class Scene implements Updatable {
 	}
 
 	/**
-	 * Sets the rendering camera, and this scene's static camera reference.
+	 * Sets the rendering camera reference
 	 * 
 	 * @param camera
-	 *            the new camera
-	 * @see game.Scene#CURRENT_CAMERA
+	 *            the new {@link Camera}
 	 */
 	public void setCamera(Camera camera) {
 		currentCamera = camera;

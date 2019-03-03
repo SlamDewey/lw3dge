@@ -51,12 +51,12 @@ public class TestGame extends Game {
 		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(staticModel, t, new Vector3f(1, 1, 1)));
 	}
 
-	public static void main(String[] args) {
-		new TestGame();
-	}
-
 	@Override
 	protected void setupCamera() {
 		Game.CURRENT_SCENE.setCamera(new FirstPersonControlledCamera(new Transform()));
+	}
+	
+	public static void main(String[] args) {
+		new TestGame();
 	}
 }

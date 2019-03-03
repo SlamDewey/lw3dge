@@ -33,7 +33,7 @@ public class MasterRenderer {
 
 	/**
 	 * Creates a new initialized MasterRenderer. Must be called after
-	 * GL.createCapabilities() is called.
+	 * GL.createCapabilities() is called, during an active OpenGL context.
 	 * 
 	 * @see lw3dge.graphics.Display#init()
 	 */
@@ -74,7 +74,7 @@ public class MasterRenderer {
 	 * as a key.
 	 * 
 	 * @param entity
-	 *            the entity to be rendered
+	 *            the {@link GraphicalEntity} to be rendered
 	 */
 	public void processEntity(GraphicalEntity entity) {
 		TexturedModel texMod = entity.getTexturedModel();
@@ -92,7 +92,7 @@ public class MasterRenderer {
 	 * Adds a light into the render queue.
 	 * 
 	 * @param light
-	 *            the light object to render
+	 *            the {@link Light} object to render
 	 */
 	public void processLight(Light light) {
 		lights.add(light);
@@ -102,7 +102,7 @@ public class MasterRenderer {
 	 * Creates a projection matrix for 3D depth perception based on
 	 * Configuration Data
 	 * 
-	 * @see game.Config
+	 * @see lw3dge.game.Config
 	 */
 	private void createProjectionMatrix() {
 		float FOV = Config.FOV;

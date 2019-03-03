@@ -8,19 +8,25 @@ import lw3dge.graphics.textures.ModelTexture;
  * 
  * @author Jared Massa
  * @see lw3dge.graphics.models.RawModel
- * @see graphics.textures.ModelTexture
+ * @see lw3dge.graphics.textures.ModelTexture
  */
 public class TexturedModel {
+	/**
+	 * The model to be using.
+	 */
 	private RawModel model;
+	/**
+	 * The ModelTexture referencing the texture this model should use.
+	 */
 	private ModelTexture texture;
 
 	/**
-	 * Create a TexturedModel reference with a model and texture
+	 * Create a TexturedModel reference with a given model and texture
 	 * 
 	 * @param model
-	 *            the model to use
+	 *            the {@link RawModel} to use
 	 * @param texture
-	 *            the texture to use
+	 *            the {@link ModelTexture} to use
 	 */
 	public TexturedModel(RawModel model, ModelTexture texture) {
 		this.model = model;
@@ -33,7 +39,7 @@ public class TexturedModel {
 	 * NOTE: THIS WILL CHANGE ALL OBJECTS USING THIS TEXTUREDMODEL
 	 * 
 	 * @param texture
-	 *            the new texture
+	 *            the new {@link ModelTexture}
 	 */
 	public void setTexture(ModelTexture texture) {
 		this.texture = texture;
@@ -42,7 +48,7 @@ public class TexturedModel {
 	/**
 	 * Get the RawModel this object uses
 	 * 
-	 * @return the model
+	 * @return the {@link RawModel}
 	 */
 	public RawModel getRawModel() {
 		return model;
@@ -51,7 +57,7 @@ public class TexturedModel {
 	/**
 	 * Get the Texture this object uses
 	 * 
-	 * @return the texture
+	 * @return the {@link ModelTexture}
 	 */
 	public ModelTexture getTexture() {
 		return texture;
