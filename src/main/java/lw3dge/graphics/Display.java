@@ -86,8 +86,6 @@ public class Display {
 	 * @see lw3dge.graphics.DisplayManager#init()
 	 */
 	void loop(Loader loader, MasterRenderer mr) {
-		int count = 0;
-		double lastTime = 0.0d;
 		while (!glfwWindowShouldClose(window)) {
 			for (GraphicalEntity e : Game.CURRENT_SCENE.entities)
 				mr.processEntity(e);
@@ -96,12 +94,6 @@ public class Display {
 			mr.render();
 			glfwPollEvents();
 			glfwSwapBuffers(window);
-			count++;
-			if (glfwGetTime() - lastTime > 1.0) {
-				lastTime = glfwGetTime();
-				System.out.println("Updated: " + count + " FPS");
-				count = 0;
-			}
 		}
 
 		mr.cleanUp();

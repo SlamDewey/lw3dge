@@ -1,10 +1,8 @@
 package lw3dge.graphics;
 
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
@@ -21,6 +19,7 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import lw3dge.game.Config;
 import lw3dge.graphics.models.RawModel;
 
 /**
@@ -54,20 +53,12 @@ public class Loader {
 	public static int loadTexture(final String fileName) {
 		int texture = 0;
 		try {
-			InputStream IS = Class.class.getResourceAsStream(fileName);
-			ByteArrayOutputStream BAOS = new ByteArrayOutputStream();
-			int read1 = IS.read();
-			while (read1 != -1) {
-				BAOS.write(read1);
-				read1 = IS.read();
-			}
-			byte[] textureBA = BAOS.toByteArray();
-			BAOS.close();
-			BufferedImage textureBI = ImageIO.read(new ByteArrayInputStream(textureBA));
+			BufferedImage textureBI = ImageIO.read(new File(fileName));
 			texture = loadTexture(textureBI);
+			//MipMap
 			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
 			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
-			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, -1);
+			GL11.glTexParameterf(GL11.GL_TEXTURE_2D, GL14.GL_TEXTURE_LOD_BIAS, Config.MIP_MAP_CONSTANT);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

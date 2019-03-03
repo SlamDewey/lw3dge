@@ -6,27 +6,31 @@ package lw3dge.game;
  * @author Jared Massa
  */
 public class TickThread extends Thread implements Runnable {
-	
-	public static int UPS_GOAL = Config.UPS_GOAL;	// # of times to update object positions per second
+
+	public static int UPS_GOAL = Config.UPS_GOAL; // # of times to update object
+													// positions per second
 	private static int UP_COUNT = 0;
 	public static int UPDATES_IN_LAST_SECOND = 0;
-	
-	final long one_second = 1_000_000_000; //its in nanoseconds so..
+
+	final long one_second = 1_000_000_000; // its in nanoseconds so..
 	final long update_interval = (one_second / UPS_GOAL);
 	long last_time;
 	long last_second;
-	
+
 	/**
 	 * Generates a new TickThread with a given thread name.
-	 * @param name the name of this TickThread
+	 * 
+	 * @param name
+	 *            the name of this TickThread
 	 */
 	public TickThread(String name) {
 		super(name);
 	}
-	
+
 	/**
-	 * The work for this thread to do.  It will tick the scene 
-	 * at a constant rate as long as Game.RUNNING is true.
+	 * The work for this thread to do. It will tick the scene at a constant rate
+	 * as long as Game.RUNNING is true.
+	 * 
 	 * @see game.Scene#tick()
 	 */
 	@Override
@@ -45,7 +49,7 @@ public class TickThread extends Thread implements Runnable {
 				last_second = now;
 				UPDATES_IN_LAST_SECOND = UP_COUNT;
 				UP_COUNT = 0;
-				System.out.println("UPS: " + UPDATES_IN_LAST_SECOND);
+				Log.println("UPS: " + UPDATES_IN_LAST_SECOND);
 			}
 		}
 	}

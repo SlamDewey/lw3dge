@@ -4,6 +4,7 @@ import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
 import lw3dge.game.Config;
 import lw3dge.game.Game;
+import lw3dge.game.Log;
 import lw3dge.game.cameras.FirstPersonControlledCamera;
 import lw3dge.graphics.DisplayManager;
 import lw3dge.graphics.Loader;
@@ -15,6 +16,7 @@ import lw3dge.graphics.models.TexturedModel;
 import lw3dge.graphics.textures.ModelTexture;
 
 public class TestGame extends Game {
+	
 	static RawModel mod;
 	static TexturedModel staticModel;
 	static ModelTexture texture;
@@ -22,13 +24,9 @@ public class TestGame extends Game {
 
 	public TestGame() {
 		super();
-		// whatever you want here
-		mod = OBJLoader.loadObjModel(Config.ABS_PROJ_PATH + "/resources/object_files/dragon.obj", DisplayManager.loader);
-		staticModel = new TexturedModel(mod,
-				new ModelTexture(Loader.loadTexture(Config.ABS_PROJ_PATH + "/resources/textures/blank_texture.png")));
-		texture = staticModel.getTexture();
-		texture.shineDamper = 10;
-		texture.reflectivity = 1;
+		
+		init_models_and_textures();
+		
 		for (int i = 0; i < 10; i++) {
 			generate_obj();
 		}
@@ -36,6 +34,15 @@ public class TestGame extends Game {
 		Game.CURRENT_SCENE.setGlobalLight(light);
 		
 		run();
+	}
+	private void init_models_and_textures() {
+		mod = OBJLoader.loadObjModel(Config.ABS_RESOURCE_PATH + "object_files/dragon.obj", DisplayManager.loader);
+		staticModel = new TexturedModel(mod,
+				new ModelTexture(Loader.loadTexture(Config.ABS_RESOURCE_PATH + "textures/blank_texture.png")));
+		texture = staticModel.getTexture();
+		texture.shineDamper = 10;
+		texture.reflectivity = 1;
+		Log.println("Finished Initializing Models");
 	}
 	
 	public static void generate_obj() {

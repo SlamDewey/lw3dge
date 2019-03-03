@@ -15,8 +15,8 @@ import lw3dge.graphics.math.Maths;
  */
 public class StaticShader extends ShaderProgram {
 	// file locations
-	private static final String VERTEX_FILE = Config.ABS_PROJ_PATH + "/resources/shaders/vertexShader.txt";
-	private static final String FRAGMENT_FILE = Config.ABS_PROJ_PATH + "/resources/shaders/fragmentShader.txt";
+	private static final String VERTEX_FILE = Config.ABS_ENGINE_PATH + "graphics/shaders/vertexShader.txt";
+	private static final String FRAGMENT_FILE = Config.ABS_ENGINE_PATH + "graphics/shaders/fragmentShader.txt";
 	// uniforms
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;

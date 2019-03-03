@@ -3,6 +3,7 @@ package lw3dge.graphics;
 import org.lwjgl.Version;
 
 import lw3dge.game.Config;
+import lw3dge.game.Log;
 
 public class DisplayManager {
 
@@ -25,15 +26,15 @@ public class DisplayManager {
 	 * @see lw3dge.graphics.Display#init()
 	 */
 	public static void start() {
-		System.out.println(Config.TITLE + ", Version: " + Config.VERSION);
-		System.out.println("LWJGL Version: " + Version.getVersion());
-		System.out.print("Initializing GLFW...");
+		Log.println(Config.TITLE + ", Version: " + Config.VERSION);
+		Log.println("LWJGL Version: " + Version.getVersion());
+		Log.println("Initializing GLFW...");
 		display = new Display();
 		display.init();
-		System.out.print("done!\n");
-		System.out.print("Initializing Engine Components...");
+		Log.println("done!");
+		Log.println("Initializing Engine Components...");
 		init();
-		System.out.print("done!\n");
+		Log.println("done!");
 	}
 
 	/**
@@ -51,9 +52,9 @@ public class DisplayManager {
 	 * @see lw3dge.graphics.Display#shutdown()
 	 */
 	public static void shutdown() {
-		System.out.print("Shutting Down...");
+		Log.println("Shutting Down...");
 		display.shutdown();
-		System.out.println("done!\n");
+		Log.println("done!\n");
 	}
 
 	/**
