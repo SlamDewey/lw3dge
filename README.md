@@ -1,4 +1,5 @@
-# lw3dge `[ LW 3D GE ]` or `[ L-Wedge ]`
+# lw3dge 
+#### also known as `LW 3D GE` or `L-Wedge`
 A Light Weight 3D Game Engine in Java, written using LWJGL 3.2.1 and custom physics and object management code.
 This Game Engine focuses on high readability, light-weight implementation, and developer empowerment (developer = Library User).
 
