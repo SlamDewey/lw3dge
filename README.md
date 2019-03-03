@@ -1,6 +1,20 @@
 # lw3dge
 A Light Weight 3D Game Engine in Java, written using LWJGL 3.2.1 and custom physics and object management code.
+This Game Engine focuses on high readability, light-weight implementation, and developer empowerment (developer = Library User).
 
+## Project Goals
+  - Easy to Implement
+    - Open Source, all dependencies are also Open Source
+    - Non-Restrictive License
+  - Easy to Understand
+    - I built this in a manner to make readability quite high.  (check documentation for examples)
+  - Easy to Alter (high customability for the developer)
+    - Developer gets the Entry Point
+    - Developer gets control over when to enter game loop
+    - Developer gets control over Models And Textures
+      - You decide your own Model Framework, but there will be a suggested format in the Documentation
+  - Lightweight To Simply provide a framework
+      - This is essentially a giant wrapper on LWJGL, and Custom Game Engine code for your use!
 ### This project is under construction!
 Feel free to look through the code in the meantime, as this project should be updating rapidly.
 ## Brief Features List
