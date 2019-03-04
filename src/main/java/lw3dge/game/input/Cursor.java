@@ -23,12 +23,13 @@ public class Cursor extends GLFWCursorPosCallback {
 	
 	public static void gainFocus() {
 		translation.set(0, 0);
-		DisplayManager.hideCursor();
+		DisplayManager.centerCursor();
 		HAS_FOCUS = true;
+		DisplayManager.hideCursor();
 	}
 	public static void loseFocus() {
-		DisplayManager.showCursor();
 		HAS_FOCUS = false;
+		DisplayManager.showCursor();
 	}
 
 }

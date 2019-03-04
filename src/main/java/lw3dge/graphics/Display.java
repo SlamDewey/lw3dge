@@ -14,11 +14,14 @@ import org.lwjgl.system.MemoryStack;
 
 import lw3dge.game.Config;
 import lw3dge.game.Game;
+import lw3dge.game.Scene;
 import lw3dge.game.input.Cursor;
 import lw3dge.game.input.Keyboard;
 import lw3dge.game.input.Mouse;
 import lw3dge.game.input.MouseScroll;
+import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.entities.GraphicalEntity;
+import lw3dge.graphics.entities.Light;
 
 /**
  * A class to directly deal with GLFW. All functions in this class are declared
@@ -87,11 +90,15 @@ public class Display {
 	 * @see lw3dge.graphics.DisplayManager#init()
 	 */
 	void loop(Loader loader, MasterRenderer mr) {
+		Scene cur;
 		while (!glfwWindowShouldClose(window)) {
-			for (GraphicalEntity e : Game.CURRENT_SCENE.entities)
+			cur = Game.CURRENT_SCENE;
+			for (Terrain t : cur.terrains)
+				mr.processTerrain(t);
+			for (GraphicalEntity e : cur.entities)
 				mr.processEntity(e);
-			if (Game.CURRENT_SCENE.light != null)
-				mr.processLight(Game.CURRENT_SCENE.light);
+			for (Light light : cur.lights)
+				mr.processLight(light);
 			mr.render();
 			glfwPollEvents();
 			glfwSwapBuffers(window);

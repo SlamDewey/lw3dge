@@ -14,7 +14,7 @@ import lw3dge.graphics.entities.GraphicalEntity;
 import lw3dge.graphics.math.Maths;
 import lw3dge.graphics.models.RawModel;
 import lw3dge.graphics.models.TexturedModel;
-import lw3dge.graphics.shaders.StaticShader;
+import lw3dge.graphics.shaders.EntityShader;
 import lw3dge.graphics.textures.ModelTexture;
 
 /**
@@ -31,7 +31,7 @@ public class EntityRenderer {
 	/**
 	 * The shader for entities
 	 */
-	private StaticShader shader;
+	private EntityShader shader;
 
 	/**
 	 * Generate a new EntityRenderer with a given shader program and projection
@@ -42,20 +42,11 @@ public class EntityRenderer {
 	 * @param projectionMatrix
 	 *            a 4x4 matrix for calculating depth projections.
 	 */
-	public EntityRenderer(StaticShader shader, Matrix4f projectionMatrix) {
+	public EntityRenderer(EntityShader shader, Matrix4f projectionMatrix) {
 		this.shader = shader;
 		shader.start();
 		shader.loadProjectionMatrix(projectionMatrix);
 		shader.stop();
-	}
-
-	/**
-	 * Prepare this renderer for a render frame (OpenGL stuff)
-	 */
-	public void prepare() {
-		GL11.glEnable(GL11.GL_DEPTH_TEST);
-		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		GL11.glClearColor(0.4f, 0.0f, 0.0f, 1);
 	}
 
 	/**

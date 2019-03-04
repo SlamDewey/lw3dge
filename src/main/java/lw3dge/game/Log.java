@@ -14,8 +14,11 @@ public class Log {
 	private static void println(LogLevel urgency, String caller, String msg) {
 		if (Config.DEBUG_MODE == LOG_VERBOSE)
 			System.out.println(urgency_headers[urgency.ordinal()] + "[" + caller + "]\t" + msg);
-		else if (Config.DEBUG_MODE == LOG_SIMPLE)
-			System.out.println(urgency_headers[urgency.ordinal()] + "[" + caller + "]\t" + msg);
+		else if (Config.DEBUG_MODE == LOG_SIMPLE) {
+			String prio = "";
+			if (urgency != LogLevel.DEBUG) prio = urgency_headers[urgency.ordinal()];
+			System.out.println(prio + "[" + caller + "]\t" + msg);
+		}
 	}
 
 	public static void println(LogLevel urgency, String msg) {

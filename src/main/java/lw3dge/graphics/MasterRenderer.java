@@ -8,12 +8,15 @@ import java.util.Map;
 import org.lwjgl.opengl.GL11;
 
 import lw3dge.components.math.Matrix4f;
+import lw3dge.components.physics.Transform;
 import lw3dge.game.Config;
 import lw3dge.game.Game;
+import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.entities.GraphicalEntity;
 import lw3dge.graphics.entities.Light;
 import lw3dge.graphics.models.TexturedModel;
-import lw3dge.graphics.shaders.StaticShader;
+import lw3dge.graphics.shaders.EntityShader;
+import lw3dge.graphics.shaders.TerrainShader;
 
 /**
  * A class to track all in-game objects to be rendered to the screen. The render
@@ -22,13 +25,21 @@ import lw3dge.graphics.shaders.StaticShader;
  * @author Jared Massa
  */
 public class MasterRenderer {
-
+	
+	private static final float RED = 0.4f;
+	private static final float GREEN = 0.4f;
+	private static final float BLUE = 0.4f;
+	
 	private Matrix4f projectionMatrix;
 
-	private StaticShader shader;
-	private EntityRenderer renderer;
+	private EntityShader entityShader;
+	private EntityRenderer entityRenderer;
+	
+	private TerrainShader terrainShader;
+	private TerrainRenderer terrainRenderer;
 
 	private Map<TexturedModel, List<GraphicalEntity>> entities = new HashMap<TexturedModel, List<GraphicalEntity>>();
+	private List<Terrain> terrains = new ArrayList<Terrain>();
 	private List<Light> lights = new ArrayList<Light>();
 
 	/**
@@ -41,8 +52,11 @@ public class MasterRenderer {
 		GL11.glEnable(GL11.GL_CULL_FACE);
 		GL11.glCullFace(GL11.GL_BACK);
 		createProjectionMatrix();
-		shader = new StaticShader();
-		renderer = new EntityRenderer(shader, projectionMatrix);
+		entityShader = new EntityShader();
+		terrainShader = new TerrainShader();
+		entityRenderer = new EntityRenderer(entityShader, projectionMatrix);
+		terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+		
 	}
 
 	/**
@@ -50,22 +64,30 @@ public class MasterRenderer {
 	 * render queues.
 	 */
 	public void render() {
+		Transform cameraT = Game.CURRENT_SCENE.getCameraTransform();
 		// prepare to render this frame
-		renderer.prepare();
-		shader.start();
-
+		prepare();
+		entityShader.start();
+		entityShader.loadSkyColor(RED, GREEN, BLUE);
 		// load camera view projection
-		shader.loadViewMatrix(Game.CURRENT_SCENE.getCameraTransform());
+		entityShader.loadViewMatrix(cameraT);
 		// load all known lights for entity illumination calculations
-		for (Light light : lights)
-			shader.loadLight(light);
+		entityShader.loadLights(lights);
 		// render entities
-		renderer.render(entities);
-
+		entityRenderer.render(entities);
 		// shutdown and wipe for next frame
-		shader.stop();
+		entityShader.stop();
+		
+		terrainShader.start();
+		terrainShader.loadSkyColor(RED, GREEN, BLUE);
+		terrainShader.loadLights(lights);
+		terrainShader.loadViewMatrix(cameraT);
+		terrainRenderer.render(terrains);
+		terrainShader.stop();
+		
 		lights.clear();
 		entities.clear();
+		terrains.clear();
 	}
 
 	/**
@@ -86,6 +108,10 @@ public class MasterRenderer {
 			newBatch.add(entity);
 			entities.put(texMod, newBatch);
 		}
+	}
+	
+	public void processTerrain(Terrain terrain) {
+		terrains.add(terrain);
 	}
 
 	/**
@@ -122,8 +148,18 @@ public class MasterRenderer {
 		projectionMatrix.m32 = -((2 * NEAR_PLANE * FAR_PLANE) / frustum_length);
 		projectionMatrix.m33 = 0;
 	}
+	
+	/**
+	 * Prepare this renderer for a render frame (OpenGL stuff)
+	 */
+	private void prepare() {
+		GL11.glEnable(GL11.GL_DEPTH_TEST);
+		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+		GL11.glClearColor(RED, GREEN, BLUE, 1);
+	}
 
 	public void cleanUp() {
-		shader.cleanUp();
+		entityShader.cleanUp();
+		terrainShader.cleanUp();
 	}
 }
