@@ -1,4 +1,4 @@
-package lw3dge.game;
+package lw3dge.engine;
 
 public class Log {
 	public static final int LOG_OFF = 0;

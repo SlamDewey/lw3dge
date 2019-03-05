@@ -31,7 +31,6 @@
  */
 package lw3dge.components.math;
 
-
 /**
  * @author foo
  */

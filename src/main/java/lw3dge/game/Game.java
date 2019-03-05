@@ -1,5 +1,7 @@
 package lw3dge.game;
 
+import lw3dge.engine.Log;
+import lw3dge.engine.Log.LogLevel;
 import lw3dge.graphics.DisplayManager;
 
 public abstract class Game {
@@ -14,7 +16,7 @@ public abstract class Game {
 	 */
 	private void init() {
 		CURRENT_SCENE = new Scene();
-		ticker = new TickThread("Engine Scene Updater");
+		ticker = new TickThread("Engine Ticker");
 	}
 
 	/**
@@ -28,7 +30,6 @@ public abstract class Game {
 	public Game() {
 		init();
 		DisplayManager.start();
-		setupCamera();
 	}
 
 	/**
@@ -43,6 +44,7 @@ public abstract class Game {
 	 * @see lw3dge.graphics.DisplayManager#shutdown()
 	 */
 	protected void run() {
+		setupCamera();
 		start_ticking();
 		DisplayManager.loop();
 		stop_ticking();
@@ -67,16 +69,16 @@ public abstract class Game {
 		try {
 			ticker.join();
 		} catch (InterruptedException e) {
-			System.err.println("Could not join Ticker Thread - Interrupted");
+			Log.println(LogLevel.FATAL, "Couldn't join ticker thread!");
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Called from the Game constructor to setup the initial Camera in this Game
+	 * Called from the run() to setup the initial Camera in this Game
 	 * Scene
 	 * 
-	 * @see game.Game#Game()
+	 * @see game.Game#run()
 	 */
 	protected abstract void setupCamera();
 }

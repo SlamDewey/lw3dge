@@ -26,8 +26,7 @@ public abstract class ExampleGame extends Game {
 	 */
 
 	/*
-	 * As a class extension, you are forced to call super(), so consider
-	 * yourself lucky I don't have to explain how important it is!
+	 * You MUST CALL super()!  It initializes some major components of the engine!
 	 *
 	 * In terms of the other instructions in this constructor, treat them as
 	 * English (as stated above) except for run(). Run() is a method defined in
@@ -41,14 +40,14 @@ public abstract class ExampleGame extends Game {
 	 * @see lw3dge.game.Game#run()
 	 */
 	public ExampleGame() {
-		super(); // yeah you gotta do this
+		super();// yeah you have to write this line
 		init_textures_and_models(); // I recommend to do this statically in
-									// another class and just call Models.init()
-									// for example.
+		                            // another class and just call Models.init()
+		                            // for example.
 		generate_initial_game_objects(); // use your loaded models to generate
-											// some game objects/entities
-		run(); // you need to call this method, or else the GLFW context will
-				// realize it isn't looping and end program
+		                                 // some game objects/entities
+		run();  // you need to call this method, or else the GLFW context will
+		        // realize it isn't looping and exit
 	}
 
 	/*

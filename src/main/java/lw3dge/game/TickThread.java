@@ -1,5 +1,8 @@
 package lw3dge.game;
 
+import lw3dge.engine.Config;
+import lw3dge.engine.Log;
+
 /**
  * A separate thread used to tick the world implemented by extending a thread
  * 

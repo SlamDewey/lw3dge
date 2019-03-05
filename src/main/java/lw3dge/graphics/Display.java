@@ -12,7 +12,7 @@ import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
 
-import lw3dge.game.Config;
+import lw3dge.engine.Config;
 import lw3dge.game.Game;
 import lw3dge.game.Scene;
 import lw3dge.game.input.Cursor;

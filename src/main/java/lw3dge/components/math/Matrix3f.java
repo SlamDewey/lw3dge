@@ -1,5 +1,3 @@
-package lw3dge.components.math;
-
 /*
 
  * Copyright (c) 2002-2008 LWJGL Project
@@ -32,6 +30,7 @@ package lw3dge.components.math;
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package lw3dge.components.math;
 
 import java.io.Serializable;
 import java.nio.FloatBuffer;

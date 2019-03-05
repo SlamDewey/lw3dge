@@ -2,8 +2,8 @@ package lw3dge.graphics;
 
 import org.lwjgl.Version;
 
-import lw3dge.game.Config;
-import lw3dge.game.Log;
+import lw3dge.engine.Config;
+import lw3dge.engine.Log;
 
 /**
  * A class for the rest of the engine to deal with GLFW. This Manager controls
@@ -45,8 +45,9 @@ public class DisplayManager {
 	 * @see lw3dge.graphics.Display#init()
 	 */
 	public static void start() {
-		Log.println(Config.TITLE + ", Version: " + Config.VERSION);
+		Log.println("LW3DGE, Version: " + 0.3);
 		Log.println("LWJGL Version: " + Version.getVersion());
+		Log.println(Config.TITLE + ", Version: " + Config.VERSION);
 		Log.println("Initializing GLFW...");
 		display = new Display();
 		display.init();

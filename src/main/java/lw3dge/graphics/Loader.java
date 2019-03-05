@@ -19,7 +19,7 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import lw3dge.game.Config;
+import lw3dge.engine.Config;
 import lw3dge.graphics.models.RawModel;
 
 /**

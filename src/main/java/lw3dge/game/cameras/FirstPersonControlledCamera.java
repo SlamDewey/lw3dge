@@ -24,7 +24,7 @@ public class FirstPersonControlledCamera extends Camera {
 	/**
 	 * Translational Movement Speed
 	 */
-	private final float speed = 10f;
+	private final float SPEED = 10f;
 
 	public FirstPersonControlledCamera() {
 		super();
@@ -43,6 +43,7 @@ public class FirstPersonControlledCamera extends Camera {
 	@Override
 	public void tick() {
 		super.tick();
+		float speed = SPEED * ((Keyboard.keys[GLFW.GLFW_KEY_LEFT_SHIFT]) ? 2 : 1);
 		if (Keyboard.keys[GLFW.GLFW_KEY_W])
 			transform.move_forward(speed * Time.deltaTime);
 		if (Keyboard.keys[GLFW.GLFW_KEY_A])

@@ -1,7 +1,4 @@
-package lw3dge.components.math;
-
 /*
-
  * Copyright (c) 2002-2008 LWJGL Project
  * All rights reserved.
  *
@@ -42,6 +39,7 @@ package lw3dge.components.math;
  * @version $Revision$
  * $Id$
  */
+package lw3dge.components.math;
 
 import java.nio.FloatBuffer;
 

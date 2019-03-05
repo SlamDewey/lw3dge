@@ -3,7 +3,7 @@ package lw3dge.game.input;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 
 import lw3dge.components.math.Vector2f;
-import lw3dge.game.Config;
+import lw3dge.engine.Config;
 import lw3dge.graphics.DisplayManager;
 
 public class Cursor extends GLFWCursorPosCallback {
@@ -22,8 +22,8 @@ public class Cursor extends GLFWCursorPosCallback {
 	}
 	
 	public static void gainFocus() {
-		translation.set(0, 0);
 		DisplayManager.centerCursor();
+		translation.set(0, 0);
 		HAS_FOCUS = true;
 		DisplayManager.hideCursor();
 	}

@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import lw3dge.components.math.Matrix4f;
 import lw3dge.components.physics.Transform;
-import lw3dge.game.Config;
+import lw3dge.engine.Config;
 import lw3dge.game.Game;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.entities.GraphicalEntity;
@@ -128,7 +128,7 @@ public class MasterRenderer {
 	 * Creates a projection matrix for 3D depth perception based on
 	 * Configuration Data
 	 * 
-	 * @see lw3dge.game.Config
+	 * @see lw3dge.engine.Config
 	 */
 	private void createProjectionMatrix() {
 		float FOV = Config.FOV;

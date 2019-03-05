@@ -5,7 +5,7 @@ import java.util.List;
 import lw3dge.components.math.Matrix4f;
 import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
-import lw3dge.game.Config;
+import lw3dge.engine.Config;
 import lw3dge.graphics.entities.Light;
 import lw3dge.graphics.math.Maths;
 
@@ -17,11 +17,8 @@ import lw3dge.graphics.math.Maths;
  */
 public class EntityShader extends ShaderProgram {
 
-	private static final int MAX_LIGHTS = 4;
-
-	// file locations
-	private static final String VERTEX_FILE = Config.ABS_ENGINE_PATH + "graphics/shaders/vertexShader.txt";
-	private static final String FRAGMENT_FILE = Config.ABS_ENGINE_PATH + "graphics/shaders/fragmentShader.txt";
+	private static final int MAX_LIGHTS = 10;
+	
 	// uniforms
 	private int location_transformationMatrix;
 	private int location_projectionMatrix;
@@ -37,7 +34,7 @@ public class EntityShader extends ShaderProgram {
 	 * Create an Instance of this Shader
 	 */
 	public EntityShader() {
-		super(VERTEX_FILE, FRAGMENT_FILE);
+		super(Config.ENTITY_VERTEX_SHADER_LOCATION, Config.ENTITY_FRAGMENT_SHADER_LOCATION);
 	}
 
 	/**

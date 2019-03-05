@@ -18,9 +18,8 @@ public class Transform implements Updatable {
 	public Vector3f position;
 	public Vector3f velocity;
 
-	// to generate an acceleration, add the force.
-	private Vector3f acceleration;
-	public Vector3f force;
+	// to generate an acceleration
+	public Vector3f acceleration;
 
 	public Vector3f rotation;
 	public Vector3f rotational_velocity;
@@ -31,7 +30,6 @@ public class Transform implements Updatable {
 		this.position = new Vector3f(0, 0, 0);
 		this.velocity = new Vector3f(0, 0, 0);
 		this.acceleration = new Vector3f(0, 0, 0);
-		this.force = new Vector3f(0, 0, 0);
 		this.rotation = new Vector3f(0, 0, 0);
 		this.rotational_velocity = new Vector3f(0, 0, 0);
 	}
@@ -40,7 +38,6 @@ public class Transform implements Updatable {
 		this.position = position;
 		this.velocity = new Vector3f();
 		this.acceleration = new Vector3f();
-		this.force = new Vector3f();
 		this.rotation = new Vector3f();
 		this.rotational_velocity = new Vector3f();
 		this.mass = mass;
@@ -120,8 +117,8 @@ public class Transform implements Updatable {
 	 */
 	public void tick() {
 		Vector3f.add(position, velocity, position);
+		Vector3f.add(acceleration, velocity, velocity);
 		if (mass > 0) {
-			acceleration.set(force.x / mass, force.y / mass, force.z / mass);
 			Vector3f.add(position, velocity, position);
 		}
 		Vector3f.add(rotation, rotational_velocity, rotation);
