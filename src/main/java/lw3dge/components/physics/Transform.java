@@ -2,8 +2,8 @@ package lw3dge.components.physics;
 
 import lw3dge.components.Updatable;
 import lw3dge.components.math.Matrix4f;
+import lw3dge.components.math.Quaternion;
 import lw3dge.components.math.Vector3f;
-import lw3dge.components.math.Vector4f;
 
 /**
  * 
@@ -15,14 +15,18 @@ import lw3dge.components.math.Vector4f;
  */
 public class Transform implements Updatable {
 
+	public static final Vector3f X_AXIS = new Vector3f(1f, 0f, 0f);
+	public static final Vector3f Y_AXIS = new Vector3f(0f, 1f, 0f);
+	public static final Vector3f Z_AXIS = new Vector3f(0f, 0f, 1f);
+
+	
 	public Vector3f position;
 	public Vector3f velocity;
 
-	// to generate an acceleration
 	public Vector3f acceleration;
 
-	public Vector3f rotation;
-	public Vector3f rotational_velocity;
+	public Quaternion orientation;
+
 	// objects with no mass will experience no acceleration
 	public float mass = 0;
 
@@ -30,16 +34,14 @@ public class Transform implements Updatable {
 		this.position = new Vector3f(0, 0, 0);
 		this.velocity = new Vector3f(0, 0, 0);
 		this.acceleration = new Vector3f(0, 0, 0);
-		this.rotation = new Vector3f(0, 0, 0);
-		this.rotational_velocity = new Vector3f(0, 0, 0);
+		this.orientation = new Quaternion(0, 0, 0, 1);
 	}
 
 	public Transform(Vector3f position, float mass) {
 		this.position = position;
 		this.velocity = new Vector3f();
 		this.acceleration = new Vector3f();
-		this.rotation = new Vector3f();
-		this.rotational_velocity = new Vector3f();
+		this.orientation = new Quaternion(0, 0, 0, 1);
 		this.mass = mass;
 	}
 
@@ -54,62 +56,35 @@ public class Transform implements Updatable {
 	 * @param z
 	 *            translation in k
 	 */
-	public void translate(float x, float y, float z) {
-		Matrix4f mat = new Matrix4f();
-		mat.m00 = 1;
-		mat.m11 = 1;
-		mat.m22 = 1;
-		mat.m33 = 1;
-		mat.m30 = x;
-		mat.m31 = y;
-		mat.m32 = z;
-		Vector4f pos = new Vector4f(x, y, z, 1);
-		Matrix4f.transform(mat, pos, pos);
-		position.x += pos.x;
-		position.y += pos.y;
-		position.z += pos.z;
+	private void translate(float x, float y, float z) {
+		position.x += x;
+		position.y += y;
+		position.z += z;
 	}
 
-	/**
-	 * Translates the transform position relative to the rotation
-	 * 
-	 * @param distance
-	 *            the distance to translate this transform by
-	 */
-	public void move_forward(float distance) {
-		translate((float) (-distance * Math.cos(rotation.y + Math.PI / 2)),
-				(float) (-distance * Math.cos(rotation.x - Math.PI / 2)),
-				(float) (-distance * Math.sin(rotation.y + Math.PI / 2)));
+	public void translate(float right, float up, float forward, boolean usesLocalAxes) {
+		if (!usesLocalAxes)
+			translate(right, up, forward);
+		else {
+			Quaternion v = new Quaternion(right, up, forward, 0);
+			Quaternion.mul(orientation, v, v);
+			Quaternion.mul(v, orientation.negate(null), v);
+			translate(v.x, v.y, v.z);
+		}
 	}
 
-	/**
-	 * Translates the transform position relative to the rotation
-	 * 
-	 * @param distance
-	 *            the distance to translate this transform by
-	 */
-	public void move_backward(float distance) {
-		move_forward(-distance);
+	public void rotate(Vector3f axis, float angle) {
+		Quaternion na = new Quaternion(axis.x, axis.y, axis.z, angle / 2);
+		Quaternion.mul(na, orientation, orientation);
+		orientation.normalise();
 	}
 
-	/**
-	 * Translates the transform position relative to the rotation
-	 * 
-	 * @param distance
-	 *            the distance to translate this transform by
-	 */
-	public void move_right(float distance) {
-		translate((float) (distance * Math.cos(rotation.y)), 0, (float) (distance * Math.sin(rotation.y)));
-	}
-
-	/**
-	 * Translates the transform position relative to the rotation
-	 * 
-	 * @param distance
-	 *            the distance to translate this transform by
-	 */
-	public void move_left(float distance) {
-		move_right(-distance);
+	public Matrix4f toMatrix4f() {
+		Matrix4f matrix = new Matrix4f();
+		orientation.normalise();
+		Matrix4f.translate(position, matrix, matrix);
+		Matrix4f.mul(matrix, orientation.toMatrix4f(), matrix);
+		return matrix;
 	}
 
 	/**
@@ -118,12 +93,5 @@ public class Transform implements Updatable {
 	public void tick() {
 		Vector3f.add(position, velocity, position);
 		Vector3f.add(acceleration, velocity, velocity);
-		if (mass > 0) {
-			Vector3f.add(position, velocity, position);
-		}
-		Vector3f.add(rotation, rotational_velocity, rotation);
-		rotation.x %= 2 * Math.PI;
-		rotation.y %= 2 * Math.PI;
-		rotation.z %= 2 * Math.PI;
 	}
 }

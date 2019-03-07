@@ -10,6 +10,7 @@ import java.nio.IntBuffer;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
 
 import lw3dge.engine.Config;
@@ -92,6 +93,7 @@ public class Display {
 	void loop(Loader loader, MasterRenderer mr) {
 		Scene cur;
 		while (!glfwWindowShouldClose(window)) {
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, Config.POLYGON_MODE);
 			cur = Game.CURRENT_SCENE;
 			for (Terrain t : cur.terrains)
 				mr.processTerrain(t);

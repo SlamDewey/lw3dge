@@ -1,6 +1,8 @@
 package lw3dge.graphics.entities;
 
 import lw3dge.components.Updatable;
+import lw3dge.components.math.Matrix4f;
+import lw3dge.components.math.Quaternion;
 import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
 import lw3dge.graphics.models.TexturedModel;
@@ -71,6 +73,12 @@ public class GraphicalEntity implements Updatable {
 	/*
 	 * Only Getters below
 	 ***************************************/
+	
+	public Matrix4f getTransformationMatrix() {
+		Matrix4f matrix = transform.toMatrix4f();
+		Matrix4f.scale(new Vector3f(scale.x, scale.y, scale.z), matrix, matrix);
+		return matrix;
+	}
 
 	public TexturedModel getTexturedModel() {
 		return model;
@@ -83,20 +91,8 @@ public class GraphicalEntity implements Updatable {
 	public Vector3f getPosition() {
 		return transform.position;
 	}
-
-	public Vector3f getRotation() {
-		return transform.rotation;
-	}
-
-	public float getXRot() {
-		return transform.rotation.x;
-	}
-
-	public float getYRot() {
-		return transform.rotation.y;
-	}
-
-	public float getZRot() {
-		return transform.rotation.z;
+	
+	public Quaternion getOrientation() {
+		return transform.orientation;
 	}
 }

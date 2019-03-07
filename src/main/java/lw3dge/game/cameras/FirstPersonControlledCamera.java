@@ -45,26 +45,21 @@ public class FirstPersonControlledCamera extends Camera {
 		super.tick();
 		float speed = SPEED * ((Keyboard.keys[GLFW.GLFW_KEY_LEFT_SHIFT]) ? 2 : 1);
 		if (Keyboard.keys[GLFW.GLFW_KEY_W])
-			transform.move_forward(speed * Time.deltaTime);
+			transform.translate(0, 0, (speed * Time.deltaTime), true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_A])
-			transform.move_left(speed * Time.deltaTime);
+			transform.translate((-speed * Time.deltaTime), 0, 0, true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_S])
-			transform.move_backward(speed * Time.deltaTime);
+			transform.translate(0, 0, (-speed * Time.deltaTime), true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_D])
-			transform.move_right(speed * Time.deltaTime);
+			transform.translate((speed * Time.deltaTime), 0, 0, true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_SPACE])
-			transform.translate(0, speed * Time.deltaTime, 0);
+			transform.translate(0, speed * Time.deltaTime, 0, false);
 		if (Keyboard.keys[GLFW.GLFW_KEY_LEFT_CONTROL])
-			transform.translate(0, -speed * Time.deltaTime, 0);
+			transform.translate(0, -speed * Time.deltaTime, 0, false);
 
 		if (Cursor.HAS_FOCUS) {
-			transform.rotation.y += Cursor.translation.x * vertical_sensitivity * Time.deltaTime;
-			transform.rotation.x += Cursor.translation.y * horizontal_sensitivity * Time.deltaTime;
-			//set X rotation limits
-			if (transform.rotation.x > Math.PI / 2)
-				transform.rotation.x = (float) (Math.PI / 2);
-			if (transform.rotation.x < -Math.PI / 2)
-				transform.rotation.x = (float) (-Math.PI / 2);
+			transform.rotate(Transform.Y_AXIS, -Cursor.translation.x * horizontal_sensitivity * Time.deltaTime);
+			transform.rotate(Transform.X_AXIS, Cursor.translation.y * vertical_sensitivity * Time.deltaTime);
 		}
 	}
 }

@@ -8,10 +8,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import lw3dge.components.math.Matrix4f;
-import lw3dge.components.math.Vector3f;
 import lw3dge.game.terrain.Terrain;
-import lw3dge.graphics.entities.GraphicalEntity;
-import lw3dge.graphics.math.Maths;
 import lw3dge.graphics.models.RawModel;
 import lw3dge.graphics.shaders.TerrainShader;
 import lw3dge.graphics.textures.ModelTexture;
@@ -30,7 +27,7 @@ public class TerrainRenderer {
 	public void render(List<Terrain> terrains) {
 		for (Terrain t : terrains) {
 			prepareTerrain(t);
-			loadModelMatrix(t);
+			shader.loadTransformationMatrix(t.getTransformationMatrix());
 			GL11.glDrawElements(GL11.GL_TRIANGLES, t.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 			unbindTexturedModel();
 		}
@@ -57,11 +54,5 @@ public class TerrainRenderer {
 		GL20.glDisableVertexAttribArray(1);
 		GL20.glDisableVertexAttribArray(2);
 		GL30.glBindVertexArray(0);
-	}
-
-	private void loadModelMatrix(Terrain t) {
-		Matrix4f transformationMatrix = Maths.createTransformationMatrix(new Vector3f(t.getX(), 0, t.getZ()),
-				new Vector3f(0, 0, 0), GraphicalEntity.NORMAL_SCALE);
-		shader.loadTransformationMatrix(transformationMatrix);
 	}
 }

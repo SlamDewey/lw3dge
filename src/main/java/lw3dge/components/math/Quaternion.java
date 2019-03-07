@@ -30,7 +30,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 /**
  *
  * Quaternions for LWJGL!
@@ -98,7 +97,7 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	 * (non-Javadoc)
 	 *
 	 * @see org.lwjgl.util.vector.WritableVector4f#set(float, float, float,
-	 *      float)
+	 * float)
 	 */
 	public void set(float x, float y, float z, float w) {
 		this.x = x;
@@ -124,6 +123,7 @@ public class Quaternion extends Vector implements ReadableVector4f {
 
 	/**
 	 * Set this quaternion to the multiplication identity.
+	 * 
 	 * @return this
 	 */
 	public Quaternion setIdentity() {
@@ -132,7 +132,9 @@ public class Quaternion extends Vector implements ReadableVector4f {
 
 	/**
 	 * Set the given quaternion to the multiplication identity.
-	 * @param q The quaternion
+	 * 
+	 * @param q
+	 *            The quaternion
 	 * @return q
 	 */
 	public static Quaternion setIdentity(Quaternion q) {
@@ -151,17 +153,18 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	}
 
 	/**
-	 * Normalise the source quaternion and place the result in another quaternion.
+	 * Normalise the source quaternion and place the result in another
+	 * quaternion.
 	 *
 	 * @param src
 	 *            The source quaternion
 	 * @param dest
-	 *            The destination quaternion, or null if a new quaternion is to be
-	 *            created
+	 *            The destination quaternion, or null if a new quaternion is to
+	 *            be created
 	 * @return The normalised quaternion
 	 */
 	public static Quaternion normalise(Quaternion src, Quaternion dest) {
-		float inv_l = 1f/src.length();
+		float inv_l = 1f / src.length();
 
 		if (dest == null)
 			dest = new Quaternion();
@@ -175,8 +178,8 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	 * Normalise this quaternion and place the result in another quaternion.
 	 *
 	 * @param dest
-	 *            The destination quaternion, or null if a new quaternion is to be
-	 *            created
+	 *            The destination quaternion, or null if a new quaternion is to
+	 *            be created
 	 * @return the normalised quaternion
 	 */
 	public Quaternion normalise(Quaternion dest) {
@@ -193,8 +196,7 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	 * @return left dot right
 	 */
 	public static float dot(Quaternion left, Quaternion right) {
-		return left.x * right.x + left.y * right.y + left.z * right.z + left.w
-				* right.w;
+		return left.x * right.x + left.y * right.y + left.z * right.z + left.w * right.w;
 	}
 
 	/**
@@ -236,7 +238,9 @@ public class Quaternion extends Vector implements ReadableVector4f {
 		return negate(this, this);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.lwjgl.util.vector.Vector#load(java.nio.FloatBuffer)
 	 */
 	public Vector load(FloatBuffer buf) {
@@ -257,10 +261,16 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	}
 
 	/**
-	 * Scale the source quaternion by scale and put the result in the destination
-	 * @param scale The amount to scale by
-	 * @param src The source quaternion
-	 * @param dest The destination quaternion, or null if a new quaternion is to be created
+	 * Scale the source quaternion by scale and put the result in the
+	 * destination
+	 * 
+	 * @param scale
+	 *            The amount to scale by
+	 * @param src
+	 *            The source quaternion
+	 * @param dest
+	 *            The destination quaternion, or null if a new quaternion is to
+	 *            be created
 	 * @return The scaled quaternion
 	 */
 	public static Quaternion scale(float scale, Quaternion src, Quaternion dest) {
@@ -273,7 +283,9 @@ public class Quaternion extends Vector implements ReadableVector4f {
 		return dest;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.lwjgl.util.vector.ReadableVector#store(java.nio.FloatBuffer)
 	 */
 	public Vector store(FloatBuffer buf) {
@@ -352,7 +364,70 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	public float getW() {
 		return w;
 	}
+	
+	public Vector4f getAxisAngle() {
+		return getAxisAngle(this);
+	}
+	public Vector4f getAxisAngle(Quaternion q) {
+		Vector4f result = new Vector4f();
+		if (q.w > 1)
+			q.normalise(); // if w>1 acos and sqrt will produce errors, this
+							// cant happen if quaternion is normalised
+		result.w = 2f * (float) Math.acos(q.w);
+		float s = (float) Math.sqrt(1 - q.w * q.w); // assuming quaternion normalised
+												// then w is less than 1, so
+												// term always positive.
+		if (s < 0.001) { // test to avoid divide by zero, s is always positive
+							// due to sqrt
+			// if s close to zero then direction of axis not important
+			result.x = q.x; // if it is important that axis is normalised then replace
+						// with x=1; y=z=0;
+			result.y = q.y;
+			result.z = q.z;
+		} else {
+			result.x = q.x / s; // normalise axis
+			result.y = q.y / s;
+			result.z = q.z / s;
+		}
+		return result;
+	}
 
+	public Matrix4f toMatrix4f() {
+		Matrix4f m = new Matrix4f();
+		m.m00 = 1 - 2 * y * y - 2 * z * z;
+		m.m01 = 2 * x * y + 2 * z * w;
+		m.m02 = 2 * x * z - 2 * y * w;
+		m.m10 = 2 * x * y - 2 * z * w;
+		m.m11 = 1 - 2 * x * x - 2 * z * z;
+		m.m12 = 2 * y * z + 2 * x * w;
+		m.m20 = 2 * x * z + 2 * y * w;
+		m.m21 = 2 * y * z - 2 * x * w;
+		m.m22 = 1 - 2 * x * x - 2 * y * y;
+		return m;
+	}
+	
+	public static Matrix4f toRotationMatrix(Vector3f r, Vector3f u, Vector3f f) {
+		Matrix4f m = new Matrix4f();
+		m.m00 = r.x;
+		m.m01 = r.y;
+		m.m02 = r.z;
+		m.m03 = 0;
+		m.m10 = u.x;
+		m.m11 = u.y;
+		m.m12 = u.z;
+		m.m13 = 0;
+		m.m20 = f.x;
+		m.m21 = f.y;
+		m.m22 = f.z;
+		m.m23 = 0;
+		m.m30 = 0;
+		m.m31 = 0;
+		m.m32 = 0;
+		m.m33 = 1;
+		return m;
+	}
+
+	@Override
 	public String toString() {
 		return "Quaternion: " + x + " " + y + " " + z + " " + w;
 	}
@@ -367,16 +442,13 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	 * @param right
 	 *            the second quaternion
 	 */
-	public static Quaternion mul(Quaternion left, Quaternion right,
-			Quaternion dest) {
+	public static Quaternion mul(Quaternion left, Quaternion right, Quaternion dest) {
 		if (dest == null)
 			dest = new Quaternion();
-		dest.set(left.x * right.w + left.w * right.x + left.y * right.z
-				- left.z * right.y, left.y * right.w + left.w * right.y
-				+ left.z * right.x - left.x * right.z, left.z * right.w
-				+ left.w * right.z + left.x * right.y - left.y * right.x,
-				left.w * right.w - left.x * right.x - left.y * right.y
-				- left.z * right.z);
+		dest.set(left.x * right.w + left.w * right.x + left.y * right.z - left.z * right.y,
+				left.y * right.w + left.w * right.y + left.z * right.x - left.x * right.z,
+				left.z * right.w + left.w * right.z + left.x * right.y - left.y * right.x,
+				left.w * right.w - left.x * right.x - left.y * right.y - left.z * right.z);
 		return dest;
 	}
 
@@ -391,24 +463,17 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	 * @param right
 	 *            the right quaternion
 	 */
-	public static Quaternion mulInverse(Quaternion left, Quaternion right,
-			Quaternion dest) {
+	public static Quaternion mulInverse(Quaternion left, Quaternion right, Quaternion dest) {
 		float n = right.lengthSquared();
 		// zero-div may occur.
 		n = (n == 0.0 ? n : 1 / n);
 		// store on stack once for aliasing-safty
 		if (dest == null)
 			dest = new Quaternion();
-		dest
-			.set((left.x * right.w - left.w * right.x - left.y
-						* right.z + left.z * right.y)
-					* n, (left.y * right.w - left.w * right.y - left.z
-						* right.x + left.x * right.z)
-					* n, (left.z * right.w - left.w * right.z - left.x
-						* right.y + left.y * right.x)
-					* n, (left.w * right.w + left.x * right.x + left.y
-						* right.y + left.z * right.z)
-					* n);
+		dest.set((left.x * right.w - left.w * right.x - left.y * right.z + left.z * right.y) * n,
+				(left.y * right.w - left.w * right.y - left.z * right.x + left.x * right.z) * n,
+				(left.z * right.w - left.w * right.z - left.x * right.y + left.y * right.x) * n,
+				(left.w * right.w + left.x * right.x + left.y * right.y + left.z * right.z) * n);
 
 		return dest;
 	}
@@ -446,18 +511,18 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	}
 
 	/**
-	 * Sets the value of the source quaternion using the rotational component of the
-	 * passed matrix.
+	 * Sets the value of the source quaternion using the rotational component of
+	 * the passed matrix.
 	 *
 	 * @param m
 	 *            The source matrix
 	 * @param q
-	 *            The destination quaternion, or null if a new quaternion is to be created
+	 *            The destination quaternion, or null if a new quaternion is to
+	 *            be created
 	 * @return q
 	 */
 	public static Quaternion setFromMatrix(Matrix4f m, Quaternion q) {
-		return q.setFromMat(m.m00, m.m01, m.m02, m.m10, m.m11, m.m12, m.m20,
-				m.m21, m.m22);
+		return q.setFromMat(m.m00, m.m01, m.m02, m.m10, m.m11, m.m12, m.m20, m.m21, m.m22);
 	}
 
 	/**
@@ -472,25 +537,25 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	}
 
 	/**
-	 * Sets the value of the source quaternion using the rotational component of the
-	 * passed matrix.
+	 * Sets the value of the source quaternion using the rotational component of
+	 * the passed matrix.
 	 *
 	 * @param m
 	 *            The source matrix
 	 * @param q
-	 *            The destination quaternion, or null if a new quaternion is to be created
+	 *            The destination quaternion, or null if a new quaternion is to
+	 *            be created
 	 * @return q
 	 */
 	public static Quaternion setFromMatrix(Matrix3f m, Quaternion q) {
-		return q.setFromMat(m.m00, m.m01, m.m02, m.m10, m.m11, m.m12, m.m20,
-				m.m21, m.m22);
+		return q.setFromMat(m.m00, m.m01, m.m02, m.m10, m.m11, m.m12, m.m20, m.m21, m.m22);
 	}
 
 	/**
 	 * Private method to perform the matrix-to-quaternion conversion
 	 */
-	private Quaternion setFromMat(float m00, float m01, float m02, float m10,
-			float m11, float m12, float m20, float m21, float m22) {
+	private Quaternion setFromMat(float m00, float m01, float m02, float m10, float m11, float m12, float m20,
+			float m21, float m22) {
 
 		float s;
 		float tr = m00 + m11 + m22;

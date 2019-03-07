@@ -1,5 +1,7 @@
 package lw3dge.game.terrain;
 
+import lw3dge.components.math.Matrix4f;
+import lw3dge.components.math.Vector3f;
 import lw3dge.graphics.Loader;
 import lw3dge.graphics.models.RawModel;
 import lw3dge.graphics.textures.ModelTexture;
@@ -35,6 +37,13 @@ public class Terrain {
 
 	public ModelTexture getTexture() {
 		return texture;
+	}
+	
+	public Matrix4f getTransformationMatrix() {
+		Matrix4f matrix = new Matrix4f();
+		matrix.setIdentity();
+		Matrix4f.translate(new Vector3f(x, 0, z), matrix, matrix);
+		return matrix;
 	}
 
 	private RawModel generateTerrain(Loader loader) {

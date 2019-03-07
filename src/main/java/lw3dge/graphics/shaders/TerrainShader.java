@@ -4,10 +4,9 @@ import java.util.List;
 
 import lw3dge.components.math.Matrix4f;
 import lw3dge.components.math.Vector3f;
-import lw3dge.components.physics.Transform;
 import lw3dge.engine.Config;
+import lw3dge.game.cameras.Camera;
 import lw3dge.graphics.entities.Light;
-import lw3dge.graphics.math.Maths;
 
 /**
  * A static shader to shade most objects Credit to ThinMatrix and his OpenGL
@@ -103,10 +102,10 @@ public class TerrainShader extends ShaderProgram {
 	 * Load the view matrix for this camera
 	 * 
 	 * @param camera
-	 *            the transform of the current camera
+	 *            the camera
 	 */
-	public void loadViewMatrix(Transform camera) {
-		super.loadMatrix(location_viewMatrix, Maths.createViewMatrix(camera));
+	public void loadViewMatrix(Camera camera) {
+		super.loadMatrix(location_viewMatrix, camera.getViewMatrix());
 	}
 
 	/**

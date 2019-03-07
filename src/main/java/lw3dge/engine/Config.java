@@ -2,6 +2,8 @@ package lw3dge.engine;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+import org.lwjgl.opengl.GL11;
+
 public class Config {
 	/*
 	 * *********************************************************************
@@ -18,6 +20,8 @@ public class Config {
 	public static final String TITLE = "LW3DGE Test";
 	// the version Client Application
 	public static final double VERSION = 0.1;
+	// for math calcuations
+	public static final float EPSILON = 0.0001f;
 	/*
 	 * *********************************************************************
 	 * Projection Matrix Settings
@@ -31,7 +35,7 @@ public class Config {
 
 	/*
 	 * *********************************************************************
-	 * GLFW and OpenGL Constants
+	 * GLFW and OpenGL Constants / Settings
 	 ***********************************************************************/
 	// Should the window be resizable? GLFW_TRUE : GLFW_FALSE
 	public static final int IS_RESIZABLE = GLFW_TRUE;
@@ -47,6 +51,8 @@ public class Config {
 	public static final int VSYNC = GLFW_TRUE;
 	// A constant integer used for scaling the mip-map blur over distance
 	public static final int MIP_MAP_CONSTANT = -1;
+	// render objects as wire frames or not.  GL11.GL_LINE : GL11.GL_FILL
+	public static int POLYGON_MODE = GL11.GL_FILL;
 	/*
 	 * *********************************************************************
 	 * Absolute and relative file paths for the Engine

@@ -109,7 +109,4 @@ public abstract class Vector implements Serializable, ReadableVector {
 	 * @return this
 	 */
 	public abstract Vector scale(float scale);
-
-
-
 }

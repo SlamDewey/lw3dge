@@ -1,7 +1,9 @@
 package lw3dge.game.cameras;
 
 import lw3dge.components.Updatable;
+import lw3dge.components.math.Matrix4f;
 import lw3dge.components.math.Vector3f;
+import lw3dge.components.math.Vector4f;
 import lw3dge.components.physics.Transform;
 
 /**
@@ -48,5 +50,15 @@ public class Camera implements Updatable {
 	@Override
 	public void tick() {
 		transform.tick();
+	}
+	public Matrix4f getViewMatrix() {
+		transform.orientation.normalise();
+		Matrix4f matrix = new Matrix4f();
+		Vector3f np = Vector3f.sub(new Vector3f(), transform.position, null);
+		Vector4f aa = transform.orientation.getAxisAngle();
+		Vector3f axis = new Vector3f(aa.x, aa.y, aa.z);
+		Matrix4f.rotate(aa.w, axis, matrix, matrix);
+		Matrix4f.translate(np, matrix, matrix);
+		return matrix;
 	}
 }

@@ -9,9 +9,7 @@ import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import lw3dge.components.math.Matrix4f;
-import lw3dge.components.math.Vector3f;
 import lw3dge.graphics.entities.GraphicalEntity;
-import lw3dge.graphics.math.Maths;
 import lw3dge.graphics.models.RawModel;
 import lw3dge.graphics.models.TexturedModel;
 import lw3dge.graphics.shaders.EntityShader;
@@ -60,7 +58,7 @@ public class EntityRenderer {
 			prepareTexturedModel(model);
 			List<GraphicalEntity> batch = entities.get(model);
 			for (GraphicalEntity entity : batch) {
-				prepareInstance(entity.getPosition(), entity.getRotation(), entity.getScale());
+				shader.loadTransformationMatrix(entity.getTransformationMatrix());
 				GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
 			}
 			unbindTexturedModel();
@@ -88,10 +86,5 @@ public class EntityRenderer {
 		GL20.glDisableVertexAttribArray(1);
 		GL20.glDisableVertexAttribArray(2);
 		GL30.glBindVertexArray(0);
-	}
-
-	private void prepareInstance(Vector3f obj_position, Vector3f obj_rotation, Vector3f scale) {
-		Matrix4f transformationMatrix = Maths.createTransformationMatrix(obj_position, obj_rotation, scale);
-		shader.loadTransformationMatrix(transformationMatrix);
 	}
 }

@@ -8,9 +8,9 @@ import java.util.Map;
 import org.lwjgl.opengl.GL11;
 
 import lw3dge.components.math.Matrix4f;
-import lw3dge.components.physics.Transform;
 import lw3dge.engine.Config;
 import lw3dge.game.Game;
+import lw3dge.game.cameras.Camera;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.entities.GraphicalEntity;
 import lw3dge.graphics.entities.Light;
@@ -64,7 +64,7 @@ public class MasterRenderer {
 	 * render queues.
 	 */
 	public void render() {
-		Transform cameraT = Game.CURRENT_SCENE.getCameraTransform();
+		Camera cameraT = Game.CURRENT_SCENE.getCamera();
 		// prepare to render this frame
 		prepare();
 		entityShader.start();
