@@ -38,7 +38,7 @@ Found an issue?  Opening Issue topics is highly encouraged during this projects 
   - [ ] 3d mesh simplifier
   - [ ] Add entity structure
   - [ ] Add enviornment rendering
-  - [ ] Add spot/point lighting
+  - [x] Add spot/point lighting
   - [ ] finish readme
   - [ ] reconsider license
   - [ ] Project Wiki/Documentation
