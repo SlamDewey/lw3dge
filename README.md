@@ -29,11 +29,13 @@ Want to contribute to the Project?  Fork the repository and offer a pull request
 ## Got an Issue?
 Found an issue?  Opening Issue topics is highly encouraged during this projects development.
 ##
-### A Todo List:
+### A Broken Todo List:
   - [x] create generic 3d rending engine
   - [x] create basic engine entry point and init() structure
-  - [x] link dependencies and license in repo
+  - [x] link dependencies and license in git repo
   - [x] open eclipse
+  - [x] setup project for easy maven integration
+  - [x] implement quaternions in object transforms
   - [ ] 3D collision detection
   - [ ] 3d mesh simplifier
   - [ ] Add entity structure
@@ -41,4 +43,5 @@ Found an issue?  Opening Issue topics is highly encouraged during this projects 
   - [x] Add spot/point lighting
   - [ ] finish readme
   - [ ] reconsider license
+  - [ ] sleep?
   - [ ] Project Wiki/Documentation
