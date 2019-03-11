@@ -79,10 +79,10 @@ public class Scene implements Updatable {
 	 * @see lw3dge.components.Updatable#tick()
 	 */
 	public void tick() {
+		currentCamera.tick();
 		for (GraphicalEntity e : entities) {
 			e.tick();
 		}
-		currentCamera.tick();
 	}
 
 	public Camera getCamera() {

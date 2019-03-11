@@ -364,24 +364,27 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	public float getW() {
 		return w;
 	}
-	
+
 	public Vector4f getAxisAngle() {
 		return getAxisAngle(this);
 	}
+
 	public Vector4f getAxisAngle(Quaternion q) {
 		Vector4f result = new Vector4f();
 		if (q.w > 1)
 			q.normalise(); // if w>1 acos and sqrt will produce errors, this
 							// cant happen if quaternion is normalised
 		result.w = 2f * (float) Math.acos(q.w);
-		float s = (float) Math.sqrt(1 - q.w * q.w); // assuming quaternion normalised
-												// then w is less than 1, so
-												// term always positive.
+		float s = (float) Math.sqrt(1 - q.w * q.w); // assuming quaternion
+													// normalised
+		// then w is less than 1, so
+		// term always positive.
 		if (s < 0.001) { // test to avoid divide by zero, s is always positive
 							// due to sqrt
 			// if s close to zero then direction of axis not important
-			result.x = q.x; // if it is important that axis is normalised then replace
-						// with x=1; y=z=0;
+			result.x = q.x; // if it is important that axis is normalised then
+							// replace
+			// with x=1; y=z=0;
 			result.y = q.y;
 			result.z = q.z;
 		} else {
@@ -395,17 +398,17 @@ public class Quaternion extends Vector implements ReadableVector4f {
 	public Matrix4f toMatrix4f() {
 		Matrix4f m = new Matrix4f();
 		m.m00 = 1 - 2 * y * y - 2 * z * z;
-		m.m01 = 2 * x * y + 2 * z * w;
-		m.m02 = 2 * x * z - 2 * y * w;
 		m.m10 = 2 * x * y - 2 * z * w;
-		m.m11 = 1 - 2 * x * x - 2 * z * z;
-		m.m12 = 2 * y * z + 2 * x * w;
 		m.m20 = 2 * x * z + 2 * y * w;
+		m.m01 = 2 * x * y + 2 * z * w;
+		m.m11 = 1 - 2 * x * x - 2 * z * z;
 		m.m21 = 2 * y * z - 2 * x * w;
+		m.m02 = 2 * x * z - 2 * y * w;
+		m.m12 = 2 * y * z + 2 * x * w;
 		m.m22 = 1 - 2 * x * x - 2 * y * y;
 		return m;
 	}
-	
+
 	public static Matrix4f toRotationMatrix(Vector3f r, Vector3f u, Vector3f f) {
 		Matrix4f m = new Matrix4f();
 		m.m00 = r.x;

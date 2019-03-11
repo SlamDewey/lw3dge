@@ -4,6 +4,7 @@ import lw3dge.components.Updatable;
 import lw3dge.components.math.Matrix4f;
 import lw3dge.components.math.Quaternion;
 import lw3dge.components.math.Vector3f;
+import lw3dge.engine.Log;
 
 /**
  * 
@@ -68,7 +69,7 @@ public class Transform implements Updatable {
 		else {
 			Quaternion v = new Quaternion(right, up, forward, 0);
 			Quaternion.mul(orientation, v, v);
-			Quaternion.mul(v, orientation.negate(null), v);
+			Quaternion.mulInverse(v, orientation, v);
 			translate(v.x, v.y, v.z);
 		}
 	}

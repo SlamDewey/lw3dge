@@ -9,10 +9,10 @@ import lw3dge.graphics.entities.GraphicalEntity;
 import resloaders.TexturedModels;
 
 public class ControlledEntity extends GraphicalEntity {
-	private final float speed = 10f;
+	private final float speed = 100f;
 	private boolean canJump = true;
 	private float time_passed = 0.0f;
-	private float rotation_speed = 15f;
+	private float rotation_speed = 20f;
 
 	public ControlledEntity(Transform transform) {
 		super(TexturedModels.BUNNY, transform, NORMAL_SCALE);
