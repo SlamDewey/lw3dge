@@ -7,11 +7,13 @@ This Game Engine focuses on high readability, light-weight implementation, and d
 
   1. Create a Maven project in your favorite editor (has to be maven for the file structure).
   2. Open your projects location in a shell to clone from git i.e. your shell should do this:
+    
     - `PATH_TO_YOUR_PROJECT> git clone https://github.com/slamdewey/lw3dge`
   3. After cloning, ensure your pom.xml and src/main/ files/folders have been overwritten.
   4. Edit `src/main/java/lw3dge/components/Config.java` and change the ABS_PROJ_PATH variable to the path to your project folder.
   5. Look through the rest of the `Config.java` file and ensure you don't want to change any other settings.
   6. Navigate to `src/test/java/` and Begin Using the Engine!
+    
     - *There should be sample test files included, which you can delete if you'd like.*
 
 ## Project Goals
