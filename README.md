@@ -35,9 +35,7 @@ Feel free to look through the code in the meantime, as this project should be up
 ## Brief Features List
 I'll do this when I make all the features
 ## Documentation
-none yet
-## Getting Started
-no details here either....
+Basic documentation will be included in the `docs/` subfolder, but it isn't hosted anywhere yet and my not be up to date.
 ## Contributing
 Want to contribute to the Project?  Fork the repository and offer a pull request with you code contributions.  Be sure to fully document any public functions using standard JavaDoc protocol.
 ## Got an Issue?
