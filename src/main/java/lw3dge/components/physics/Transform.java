@@ -4,7 +4,6 @@ import lw3dge.components.Updatable;
 import lw3dge.components.math.Matrix4f;
 import lw3dge.components.math.Quaternion;
 import lw3dge.components.math.Vector3f;
-import lw3dge.engine.Log;
 
 /**
  * 
@@ -75,7 +74,13 @@ public class Transform implements Updatable {
 	}
 
 	public void rotate(Vector3f axis, float angle) {
-		Quaternion na = new Quaternion(axis.x, axis.y, axis.z, angle / 2);
+		float sinHalfTheta = (float) Math.sin(angle / 2.0f);
+		float cosHalfTheta = (float) Math.cos(angle / 2.0f);
+		Quaternion na = new Quaternion(
+				axis.x * sinHalfTheta,
+				axis.y * sinHalfTheta,
+				axis.z * sinHalfTheta,
+				cosHalfTheta);
 		Quaternion.mul(na, orientation, orientation);
 		orientation.normalise();
 	}

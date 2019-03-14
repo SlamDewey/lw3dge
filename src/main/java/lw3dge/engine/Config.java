@@ -38,7 +38,7 @@ public class Config {
 	 * GLFW and OpenGL Constants / Settings
 	 ***********************************************************************/
 	// Should the window be resizable? GLFW_TRUE : GLFW_FALSE
-	public static final int IS_RESIZABLE = GLFW_TRUE;
+	public static final int IS_RESIZABLE = GLFW_FALSE;
 	// Should the window be visible? GLFW_TRUE : GLFW_FALSE
 	public static final int IS_VISIBLE = GLFW_TRUE;
 	// Window Width
