@@ -105,7 +105,6 @@ public class Display {
 			glfwPollEvents();
 			glfwSwapBuffers(window);
 		}
-
 		mr.cleanUp();
 		loader.cleanUp();
 	}

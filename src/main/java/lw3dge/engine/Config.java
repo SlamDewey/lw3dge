@@ -31,7 +31,7 @@ public class Config {
 	// the nearest point that can be seen from the projection matrix
 	public static final float NEAR_PLANE = 0.01f;
 	// the maximum distance that the projection matrix will bother with
-	public static final float FAR_PLANE = 1000f;
+	public static final float FAR_PLANE = 10000f;
 
 	/*
 	 * *********************************************************************

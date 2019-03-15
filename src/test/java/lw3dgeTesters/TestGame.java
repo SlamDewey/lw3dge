@@ -20,18 +20,14 @@ public class TestGame extends Game {
 
 	public TestGame() {
 		super();
-		
 		init_models_and_textures();
 		
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 20; i++)
 			generate_dragon();
-		}
-		for (int i = 0; i < 400; i++) {
+		for (int i = 0; i < 400; i++)
 			generate_tree();
-		}
 		
 		set_lights();
-		
 		run();
 	}
 	private void init_models_and_textures() {
