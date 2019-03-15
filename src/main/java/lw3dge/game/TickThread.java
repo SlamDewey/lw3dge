@@ -15,8 +15,8 @@ public class TickThread extends Thread implements Runnable {
 	private static int UP_COUNT = 0;
 	public static int UPDATES_IN_LAST_SECOND = 0;
 
-	final long one_second = 1_000_000_000; // its in nanoseconds so..
-	final long update_interval = (one_second / UPS_GOAL);
+	private final long one_second = 1_000_000_000; // its in nanoseconds so..
+	private final long update_interval = (one_second / UPS_GOAL);
 	long last_time;
 	long last_second;
 
