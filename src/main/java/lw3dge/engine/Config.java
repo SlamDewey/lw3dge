@@ -58,7 +58,7 @@ public class Config {
 	 * Absolute and relative file paths for the Engine
 	 ***********************************************************************/
 	//absolute path to this project
-	public static final String ABS_PROJ_PATH = "C:/Users/mrjar/eclipse-workspace/lw3dge/";
+	public static final String ABS_PROJ_PATH = "Z:/game/lw3dge/";
 	//relative path to the LW3DGE code
 	public static final String REL_ENG_PATH = "src/main/java/lw3dge/";
 	//absolute engine path

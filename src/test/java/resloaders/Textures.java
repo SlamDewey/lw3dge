@@ -13,7 +13,7 @@ public class Textures {
 	
 	
 	public static void init() {
-		BLANK_TEXTURE = new ModelTexture(Loader.loadTexture(Config.ABS_RESOURCE_PATH + "textures/blank_texture.png"));
+		BLANK_TEXTURE = new ModelTexture(Loader.loadTexture(Config.ABS_RESOURCE_PATH + "textures/new_emote.png"));
 		BLANK_TEXTURE.shineDamper = 3.5f;
 		BLANK_TEXTURE.reflectivity = 1.5f;
 		TREE_TEXTURE = new ModelTexture(Loader.loadTexture(Config.ABS_RESOURCE_PATH + "textures/tree.png"));

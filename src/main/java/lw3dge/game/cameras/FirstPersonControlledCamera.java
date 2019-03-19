@@ -47,18 +47,18 @@ public class FirstPersonControlledCamera extends Camera {
 		if (Keyboard.keys[GLFW.GLFW_KEY_W])
 			transform.translate(0, 0, (speed * Time.deltaTime), true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_A])
-			transform.translate((-speed * Time.deltaTime), 0, 0, true);
+			transform.translate((speed * Time.deltaTime), 0, 0, true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_S])
 			transform.translate(0, 0, (-speed * Time.deltaTime), true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_D])
-			transform.translate((speed * Time.deltaTime), 0, 0, true);
+			transform.translate((-speed * Time.deltaTime), 0, 0, true);
 		if (Keyboard.keys[GLFW.GLFW_KEY_SPACE])
 			transform.translate(0, speed * Time.deltaTime, 0, false);
 		if (Keyboard.keys[GLFW.GLFW_KEY_LEFT_CONTROL])
 			transform.translate(0, -speed * Time.deltaTime, 0, false);
 
 		if (Cursor.HAS_FOCUS) {
-			transform.rotate(Transform.Y_AXIS, -Cursor.translation.x * horizontal_sensitivity * Time.deltaTime);
+			transform.rotate(Transform.Y_AXIS, Cursor.translation.x * horizontal_sensitivity * Time.deltaTime);
 			transform.rotate(Transform.X_AXIS, Cursor.translation.y * vertical_sensitivity * Time.deltaTime);
 		}
 	}

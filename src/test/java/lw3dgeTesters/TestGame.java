@@ -4,7 +4,7 @@ import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
 import lw3dge.engine.Log;
 import lw3dge.game.Game;
-import lw3dge.game.cameras.ThirdPersonControlledCamera;
+import lw3dge.game.cameras.FirstPersonControlledCamera;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.DisplayManager;
 import lw3dge.graphics.entities.GraphicalEntity;
@@ -46,7 +46,7 @@ public class TestGame extends Game {
 	public static void generate_dragon() {
 		Transform t;
 		t = new Transform(new Vector3f((float) (Math.random() * -200.0f) + 100f, 0, (float) (Math.random() * -100.0f)), 0);
-		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.DRAGON, t, new Vector3f(1, 1, 1)));
+		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.DRAGON, t, new Vector3f(5, 5, 5)));
 	}
 	private void generate_tree() {
 		Transform t;
@@ -74,7 +74,7 @@ public class TestGame extends Game {
 	protected void setupCamera() {
 		ControlledEntity focus = new ControlledEntity(new Transform(new Vector3f(0, 0, -20), 1));
 		Game.CURRENT_SCENE.addEntity(focus);
-		Game.CURRENT_SCENE.setCamera(new ThirdPersonControlledCamera(focus.transform));
+		Game.CURRENT_SCENE.setCamera(new FirstPersonControlledCamera());
 	}
 	
 	public static void main(String[] args) {

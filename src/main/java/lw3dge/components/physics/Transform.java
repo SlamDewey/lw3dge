@@ -74,6 +74,7 @@ public class Transform implements Updatable {
 	}
 
 	public void rotate(Vector3f axis, float angle) {
+		axis.normalise();
 		float sinHalfTheta = (float) Math.sin(angle / 2.0f);
 		float cosHalfTheta = (float) Math.cos(angle / 2.0f);
 		Quaternion na = new Quaternion(

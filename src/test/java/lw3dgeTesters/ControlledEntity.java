@@ -10,6 +10,7 @@ import lw3dge.graphics.entities.GraphicalEntity;
 import resloaders.TexturedModels;
 
 public class ControlledEntity extends GraphicalEntity {
+	
 	private final float speed = 100f;
 	private boolean canJump = true;
 	private float rotation_speed = 5f;
@@ -23,9 +24,9 @@ public class ControlledEntity extends GraphicalEntity {
 		super.tick();
 		transform.acceleration.setY(-.03f);
 		
-		if (!canJump && transform.position.y <= 0f) {
+		if (!canJump && transform.position.y <= 0f)
 			canJump = true;
-		}
+		
 		if (transform.position.y < 0) {
 			transform.position.y = 0;
 			transform.acceleration.setY(0f);
