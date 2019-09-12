@@ -4,7 +4,7 @@ import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
 import lw3dge.engine.Log;
 import lw3dge.game.Game;
-import lw3dge.game.cameras.FirstPersonControlledCamera;
+import lw3dge.game.cameras.ThirdPersonControlledCamera;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.DisplayManager;
 import lw3dge.graphics.entities.GraphicalEntity;
@@ -17,6 +17,7 @@ public class TestGame extends Game {
 	
 	
 	static Terrain terrain;
+	static Transform t;
 
 	public TestGame() {
 		super();
@@ -44,17 +45,15 @@ public class TestGame extends Game {
 	}
 	
 	public static void generate_dragon() {
-		Transform t;
 		t = new Transform(new Vector3f((float) (Math.random() * -200.0f) + 100f, 0, (float) (Math.random() * -100.0f)), 0);
-		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.DRAGON, t, new Vector3f(5, 5, 5)));
+		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.DRAGON, t, new Vector3f(1, 1, 1)));
 	}
 	private void generate_tree() {
-		Transform t;
 		t = new Transform(new Vector3f((float) (Math.random() * 1600f) - 800f, 0, (float) (Math.random() * -800f)), 0);
 		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.TREE, t, new Vector3f(10, 10, 10)));
 	}
 	private void set_lights() {
-		Light sun = new Light(new Vector3f(0, 500, -30), new Vector3f(.4f, .4f, .4f));
+		Light sun = new Light(new Vector3f(0, -1000, -50), new Vector3f(.8f, .8f, .8f));
 		Light red = new Light(new Vector3f(50, 1, -80), new Vector3f(1, 0, 0), new Vector3f(1, 0.001f, 0.002f));
 		Light green = new Light(new Vector3f(0, 1, -80), new Vector3f(0, 1, 0), new Vector3f(1, 0.001f, 0.002f));
 		Light blue = new Light(new Vector3f(-50, 1, -80), new Vector3f(0, 0, 1), new Vector3f(1, 0.001f, 0.002f));
@@ -74,7 +73,8 @@ public class TestGame extends Game {
 	protected void setupCamera() {
 		ControlledEntity focus = new ControlledEntity(new Transform(new Vector3f(0, 0, -20), 1));
 		Game.CURRENT_SCENE.addEntity(focus);
-		Game.CURRENT_SCENE.setCamera(new FirstPersonControlledCamera());
+		//Game.CURRENT_SCENE.setCamera(new FirstPersonControlledCamera());
+		Game.CURRENT_SCENE.setCamera(new ThirdPersonControlledCamera(focus.transform));
 	}
 	
 	public static void main(String[] args) {

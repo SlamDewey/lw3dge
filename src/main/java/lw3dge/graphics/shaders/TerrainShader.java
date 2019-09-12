@@ -28,6 +28,7 @@ public class TerrainShader extends ShaderProgram {
 	private int location_shineDamper;
 	private int location_reflectivity;
 	private int location_skyColor;
+	private int location_minBrightness;
 
 	/**
 		 * Create an Instance of this Shader
@@ -59,6 +60,7 @@ public class TerrainShader extends ShaderProgram {
 		location_transformationMatrix = super.getUniformLocation("transformationMatrix");
 		location_projectionMatrix = super.getUniformLocation("projectionMatrix");
 		location_viewMatrix = super.getUniformLocation("viewMatrix");
+		location_minBrightness = super.getUniformLocation("minBrightness");
 
 		location_lightPosition = new int[MAX_LIGHTS];
 		location_lightColor = new int[MAX_LIGHTS];
@@ -114,7 +116,8 @@ public class TerrainShader extends ShaderProgram {
 	 * @param light
 	 *            the Light
 	 */
-	public void loadLights(List<Light> lights) {
+	public void loadLights(List<Light> lights, float minBrightness) {
+		super.loadFloat(location_minBrightness, minBrightness);
 		for (int i = 0; i < MAX_LIGHTS; i++) {
 			if (i < lights.size()) {
 				super.loadVector(location_lightPosition[i], lights.get(i).position);

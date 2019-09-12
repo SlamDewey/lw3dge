@@ -26,6 +26,9 @@ import lw3dge.graphics.shaders.TerrainShader;
  */
 public class MasterRenderer {
 	
+	private final float DARK_MIN = 0.02f;
+	private final float LIGHT_MIN = 0.2f;
+	
 	private static final float RED = 0.4f;
 	private static final float GREEN = 0.4f;
 	private static final float BLUE = 0.4f;
@@ -72,7 +75,7 @@ public class MasterRenderer {
 		// load camera view projection
 		entityShader.loadViewMatrix(cameraT);
 		// load all known lights for entity illumination calculations
-		entityShader.loadLights(lights);
+		entityShader.loadLights(lights, LIGHT_MIN);
 		// render entities
 		entityRenderer.render(entities);
 		// shutdown and wipe for next frame
@@ -80,7 +83,7 @@ public class MasterRenderer {
 		
 		terrainShader.start();
 		terrainShader.loadSkyColor(RED, GREEN, BLUE);
-		terrainShader.loadLights(lights);
+		terrainShader.loadLights(lights, LIGHT_MIN);
 		terrainShader.loadViewMatrix(cameraT);
 		terrainRenderer.render(terrains);
 		terrainShader.stop();
