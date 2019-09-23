@@ -21,6 +21,7 @@ import lw3dge.game.Time;
 import lw3dge.game.input.Cursor;
 import lw3dge.game.input.Keyboard;
 import lw3dge.game.input.Mouse;
+import lw3dge.game.input.MousePicker;
 import lw3dge.game.input.MouseScroll;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.entities.GraphicalEntity;
@@ -43,6 +44,8 @@ public class Display {
 	public static int frames_in_last_second = 0;
 	private final long ONE_SECOND = 1_000_000_000; // its in nanoseconds so..
 	private final long UPDATE_INTERVAL = ONE_SECOND / Config.UPDATES_PER_SECOND;
+	
+	public static MousePicker MP;
 
 	/**
 	 * Initialize this Display and GLFW Context and attempt to center window
@@ -108,6 +111,7 @@ public class Display {
 		while (!glfwWindowShouldClose(window)) {
 			//setup
 			cur = Game.CURRENT_SCENE;
+			(MP = new MousePicker(cur.getCamera(), MasterRenderer.projectionMatrix, cur.terrains.get(0))).update();
 			now = System.nanoTime();
 			if (now - last_update >= UPDATE_INTERVAL) {
 				Time.set(now - last_update);

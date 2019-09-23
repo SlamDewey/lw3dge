@@ -18,14 +18,17 @@ public class Cursor extends GLFWCursorPosCallback {
 	public void invoke(long window, double xPos, double yPos) {
 		position.set((float) xPos, (float) yPos);
 		Vector2f.sub(position, center, translation);
-		if (HAS_FOCUS) DisplayManager.centerCursor();
+		
+		if (HAS_FOCUS && Config.CENTER_CURSOR_ON_FOCUS) DisplayManager.centerCursor();
 	}
 	
 	public static void gainFocus() {
-		DisplayManager.centerCursor();
+		if (Config.CENTER_CURSOR_ON_FOCUS)
+			DisplayManager.centerCursor();
 		translation.set(0, 0);
 		HAS_FOCUS = true;
-		DisplayManager.hideCursor();
+		if (Config.HIDE_CURSOR_ON_FOCUS)
+			DisplayManager.hideCursor();
 	}
 	public static void loseFocus() {
 		HAS_FOCUS = false;

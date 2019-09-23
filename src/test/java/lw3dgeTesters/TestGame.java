@@ -4,7 +4,7 @@ import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
 import lw3dge.engine.Log;
 import lw3dge.game.Game;
-import lw3dge.game.cameras.ThirdPersonControlledCamera;
+import lw3dge.game.cameras.ThirdPersonCamera;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.DisplayManager;
 import lw3dge.graphics.entities.GraphicalEntity;
@@ -29,7 +29,6 @@ public class TestGame extends Game {
 			generate_tree();
 		
 		set_lights();
-		run();
 	}
 	private void init_models_and_textures() {
 		
@@ -74,10 +73,12 @@ public class TestGame extends Game {
 		ControlledEntity focus = new ControlledEntity(new Transform(new Vector3f(0, 0, -20), 1));
 		Game.CURRENT_SCENE.addEntity(focus);
 		//Game.CURRENT_SCENE.setCamera(new FirstPersonControlledCamera());
-		Game.CURRENT_SCENE.setCamera(new ThirdPersonControlledCamera(focus.transform));
+		//Game.CURRENT_SCENE.setCamera(new ThirdPersonControlledCamera(focus.transform));
+		Game.CURRENT_SCENE.setCamera(new ThirdPersonCamera(focus.transform));
 	}
 	
 	public static void main(String[] args) {
-		new TestGame();
+		TestGame game = new TestGame();
+		game.run();
 	}
 }

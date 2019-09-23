@@ -54,6 +54,10 @@ public class Config {
 	public static final int MIP_MAP_CONSTANT = -1;
 	// render objects as wire frames or not.  GL11.GL_LINE : GL11.GL_FILL
 	public static int POLYGON_MODE = GL11.GL_FILL;
+	// center cursor on focus
+	public static boolean CENTER_CURSOR_ON_FOCUS = false;
+	// hide cursor on focus
+	public static boolean HIDE_CURSOR_ON_FOCUS = false;
 	/*
 	 * *********************************************************************
 	 * Absolute and relative file paths for the Engine

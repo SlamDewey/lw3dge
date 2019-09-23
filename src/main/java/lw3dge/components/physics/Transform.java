@@ -19,7 +19,6 @@ public class Transform implements Updatable {
 	public static final Vector3f Y_AXIS = new Vector3f(0f, 1f, 0f);
 	public static final Vector3f Z_AXIS = new Vector3f(0f, 0f, 1f);
 
-	
 	public Vector3f position;
 	public Vector3f velocity;
 
@@ -77,13 +76,32 @@ public class Transform implements Updatable {
 		axis.normalise();
 		float sinHalfTheta = (float) Math.sin(angle / 2.0f);
 		float cosHalfTheta = (float) Math.cos(angle / 2.0f);
-		Quaternion na = new Quaternion(
-				axis.x * sinHalfTheta,
-				axis.y * sinHalfTheta,
-				axis.z * sinHalfTheta,
+		Quaternion na = new Quaternion(axis.x * sinHalfTheta, axis.y * sinHalfTheta, axis.z * sinHalfTheta,
 				cosHalfTheta);
 		Quaternion.mul(na, orientation, orientation);
 		orientation.normalise();
+	}
+
+	/**
+	 * Calculates and sets a new orientation to make this transform face another
+	 * (focus) transform by using vector cross products.
+	 * 
+	 * @param focus
+	 *            The focus Transform to orient this transform toward
+	 */
+	public void lookAt(Transform focus) {
+		Vector3f f = Vector3f.sub(focus.position, position, null);
+		Vector3f u = new Vector3f(0, 1f, 0);
+		f.normalise();
+		Vector3f r = Vector3f.cross(u, f, null);
+		r.normalise();
+		Vector3f.cross(f, r, u);
+		f.scale(-1f);
+		r.scale(-1f);
+
+		Matrix4f m = new Matrix4f();
+		m = Quaternion.toRotationMatrix(r, u, f);
+		orientation.setFromMatrix(m);
 	}
 
 	public Matrix4f toMatrix4f() {

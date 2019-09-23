@@ -26,14 +26,14 @@ import lw3dge.graphics.shaders.TerrainShader;
  */
 public class MasterRenderer {
 	
-	private final float DARK_MIN = 0.02f;
+	//private final float DARK_MIN = 0.02f;
 	private final float LIGHT_MIN = 0.2f;
 	
 	private static final float RED = 0.4f;
 	private static final float GREEN = 0.4f;
 	private static final float BLUE = 0.4f;
 	
-	private Matrix4f projectionMatrix;
+	public static Matrix4f projectionMatrix;
 
 	private EntityShader entityShader;
 	private EntityRenderer entityRenderer;
