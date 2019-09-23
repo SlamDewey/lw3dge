@@ -39,7 +39,10 @@ public class Display {
 	private static long window;
 	private static int update_count = 0;
 	public static int updates_in_last_second = 0;
+	private static int fps_count = 0;
+	public static int frames_in_last_second = 0;
 	private final long ONE_SECOND = 1_000_000_000; // its in nanoseconds so..
+	private final long UPDATE_INTERVAL = ONE_SECOND / Config.UPDATES_PER_SECOND;
 
 	/**
 	 * Initialize this Display and GLFW Context and attempt to center window
@@ -99,22 +102,21 @@ public class Display {
 	 */
 	void loop(Loader loader, MasterRenderer mr) {
 		Scene cur;
-		long last_time, last_second, now;
-		last_time = last_second = System.nanoTime();
+		long last_second, now, last_update;
+		last_update = 0;
+		last_update = last_second = System.nanoTime();
 		while (!glfwWindowShouldClose(window)) {
-			//time updates
-			now = System.nanoTime();
-			if (now - last_second > ONE_SECOND) {
-				last_second = now;
-				updates_in_last_second = update_count;
-				update_count = 0;
-				Log.println("UPS: " + updates_in_last_second);
-			}
-			Time.set(now - last_time);
-			//game updates
-			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, Config.POLYGON_MODE);
+			//setup
 			cur = Game.CURRENT_SCENE;
-			cur.tick();
+			now = System.nanoTime();
+			if (now - last_update >= UPDATE_INTERVAL) {
+				Time.set(now - last_update);
+				update_count++;
+				last_update += UPDATE_INTERVAL;
+				cur.tick();
+			}
+			//graphics updates
+			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, Config.POLYGON_MODE);
 			for (Terrain t : cur.terrains)
 				mr.processTerrain(t);
 			for (GraphicalEntity e : cur.entities)
@@ -125,7 +127,19 @@ public class Display {
 			//setup for next loop
 			glfwPollEvents();
 			glfwSwapBuffers(window);
-			last_time = now;
+			fps_count++;
+			//debug logging
+			if (Config.DEBUG_UPS_FPS) {
+				if (now - last_second > ONE_SECOND) {
+					last_second = now;
+					updates_in_last_second = update_count;
+					frames_in_last_second = fps_count;
+					update_count = 0;
+					fps_count = 0;
+					Log.println("UPS: " + updates_in_last_second);
+					Log.println("FPS: " + frames_in_last_second);
+				}
+			}
 		}
 		mr.cleanUp();
 		loader.cleanUp();

@@ -23,8 +23,8 @@ public class ThirdPersonControlledCamera extends Camera {
 	private final float MIN_DISTANCE = 5.0f;
 
 	// should move to config?
-	private float vertical_sensitivity = .08f;
-	private float horizontal_sensitivity = .08f;
+	private float vertical_sensitivity = .15f;
+	private float horizontal_sensitivity = .15f;
 	private float scroll_constant = 2;
 
 	// starting values

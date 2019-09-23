@@ -12,6 +12,7 @@ public class Config {
 	// the setting for the log output, can be:
 	// LOG_SIMPLE, LOG_OFF, LOG_VERBOSE
 	public static int DEBUG_MODE = Log.LOG_SIMPLE;
+	public static final boolean DEBUG_UPS_FPS = true;
 	/*
 	 * *********************************************************************
 	 * Client Application Settings
@@ -41,12 +42,14 @@ public class Config {
 	public static final int IS_RESIZABLE = GLFW_FALSE;
 	// Should the window be visible? GLFW_TRUE : GLFW_FALSE
 	public static final int IS_VISIBLE = GLFW_TRUE;
+	// The number of Physics Engine Updates per second to aim for (not FPS!)
+	public static final int UPDATES_PER_SECOND = 144;
 	// Window Width
-	public static final int WIDTH = 1600;
+	public static final int WIDTH = 1280;
 	// Window Height
-	public static final int HEIGHT = 900;
+	public static final int HEIGHT = 720;
 	// Enable or disable synchronization to monitor refresh frequency.
-	public static final int VSYNC = GLFW_TRUE;
+	public static final int VSYNC = GLFW_FALSE;
 	// A constant integer used for scaling the mip-map blur over distance
 	public static final int MIP_MAP_CONSTANT = -1;
 	// render objects as wire frames or not.  GL11.GL_LINE : GL11.GL_FILL
