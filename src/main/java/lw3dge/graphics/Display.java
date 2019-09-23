@@ -14,8 +14,10 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
 
 import lw3dge.engine.Config;
+import lw3dge.engine.Log;
 import lw3dge.game.Game;
 import lw3dge.game.Scene;
+import lw3dge.game.Time;
 import lw3dge.game.input.Cursor;
 import lw3dge.game.input.Keyboard;
 import lw3dge.game.input.Mouse;
@@ -35,6 +37,9 @@ import lw3dge.graphics.entities.Light;
  */
 public class Display {
 	private static long window;
+	private static int update_count = 0;
+	public static int updates_in_last_second = 0;
+	private final long ONE_SECOND = 1_000_000_000; // its in nanoseconds so..
 
 	/**
 	 * Initialize this Display and GLFW Context and attempt to center window
@@ -80,7 +85,8 @@ public class Display {
 
 	/**
 	 * Enter the graphics loop for this display. We will render entities, poll
-	 * events, and swap buffers.
+	 * events, and swap buffers.  This method is also responsible for timing
+	 * itself, so it can set the delta-time value for between frames.
 	 * 
 	 * @param loader
 	 *            the generated {@link Loader} from initialization
@@ -89,12 +95,26 @@ public class Display {
 	 * @see lw3dge.graphics.Loader
 	 * @see lw3dge.graphics.MasterRenderer
 	 * @see lw3dge.graphics.DisplayManager#init()
+	 * @see lw3dge.game.Time
 	 */
 	void loop(Loader loader, MasterRenderer mr) {
 		Scene cur;
+		long last_time, last_second, now;
+		last_time = last_second = System.nanoTime();
 		while (!glfwWindowShouldClose(window)) {
+			//time updates
+			now = System.nanoTime();
+			if (now - last_second > ONE_SECOND) {
+				last_second = now;
+				updates_in_last_second = update_count;
+				update_count = 0;
+				Log.println("UPS: " + updates_in_last_second);
+			}
+			Time.set(now - last_time);
+			//game updates
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, Config.POLYGON_MODE);
 			cur = Game.CURRENT_SCENE;
+			cur.tick();
 			for (Terrain t : cur.terrains)
 				mr.processTerrain(t);
 			for (GraphicalEntity e : cur.entities)
@@ -102,8 +122,10 @@ public class Display {
 			for (Light light : cur.lights)
 				mr.processLight(light);
 			mr.render();
+			//setup for next loop
 			glfwPollEvents();
 			glfwSwapBuffers(window);
+			last_time = now;
 		}
 		mr.cleanUp();
 		loader.cleanUp();

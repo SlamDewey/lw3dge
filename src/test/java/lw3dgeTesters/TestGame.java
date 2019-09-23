@@ -53,7 +53,7 @@ public class TestGame extends Game {
 		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.TREE, t, new Vector3f(10, 10, 10)));
 	}
 	private void set_lights() {
-		Light sun = new Light(new Vector3f(0, -1000, -50), new Vector3f(.8f, .8f, .8f));
+		Light sun = new Light(new Vector3f(0, 1000, -50), new Vector3f(.8f, .8f, .8f));
 		Light red = new Light(new Vector3f(50, 1, -80), new Vector3f(1, 0, 0), new Vector3f(1, 0.001f, 0.002f));
 		Light green = new Light(new Vector3f(0, 1, -80), new Vector3f(0, 1, 0), new Vector3f(1, 0.001f, 0.002f));
 		Light blue = new Light(new Vector3f(-50, 1, -80), new Vector3f(0, 0, 1), new Vector3f(1, 0.001f, 0.002f));

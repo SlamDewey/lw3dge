@@ -18,7 +18,7 @@ public class ControlledEntity extends GraphicalEntity {
 	public ControlledEntity(Transform transform) {
 		super(TexturedModels.BUNNY, transform, NORMAL_SCALE);
 	}
-
+	
 	@Override
 	public void tick() {
 		super.tick();

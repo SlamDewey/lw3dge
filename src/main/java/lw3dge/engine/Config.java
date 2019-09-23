@@ -45,8 +45,6 @@ public class Config {
 	public static final int WIDTH = 1600;
 	// Window Height
 	public static final int HEIGHT = 900;
-	// The Updates Per Second Goal of the TickThread
-	public static final int UPS_GOAL = 120;
 	// Enable or disable synchronization to monitor refresh frequency.
 	public static final int VSYNC = GLFW_TRUE;
 	// A constant integer used for scaling the mip-map blur over distance
