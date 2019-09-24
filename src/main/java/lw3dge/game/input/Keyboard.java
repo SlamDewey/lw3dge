@@ -5,7 +5,6 @@ import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL11;
 
 import lw3dge.engine.Config;
-import lw3dge.engine.Log;
 
 public class Keyboard extends GLFWKeyCallback {
 	public static boolean[] keys = new boolean[500];

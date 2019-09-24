@@ -82,28 +82,6 @@ public class Transform implements Updatable {
 		orientation.normalise();
 	}
 
-	/**
-	 * Calculates and sets a new orientation to make this transform face another
-	 * (focus) transform by using vector cross products.
-	 * 
-	 * @param focus
-	 *            The focus Transform to orient this transform toward
-	 */
-	public void lookAt(Transform focus) {
-		Vector3f f = Vector3f.sub(focus.position, position, null);
-		Vector3f u = new Vector3f(0, 1f, 0);
-		f.normalise();
-		Vector3f r = Vector3f.cross(u, f, null);
-		r.normalise();
-		Vector3f.cross(f, r, u);
-		f.scale(-1f);
-		r.scale(-1f);
-
-		Matrix4f m = new Matrix4f();
-		m = Quaternion.toRotationMatrix(r, u, f);
-		orientation.setFromMatrix(m);
-	}
-
 	public Matrix4f toMatrix4f() {
 		Matrix4f matrix = new Matrix4f();
 		orientation.normalise();

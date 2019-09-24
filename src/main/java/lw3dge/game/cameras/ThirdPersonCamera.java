@@ -16,7 +16,7 @@ public class ThirdPersonCamera extends Camera {
 	public ThirdPersonCamera() {
 		super();
 		this.focus = new Transform();
-		lookAtFocus();
+		lookAt(focus);
 	}
 	/**
 	 * Create a new ThirdPersonControlledCamera with a focus transform
@@ -26,7 +26,7 @@ public class ThirdPersonCamera extends Camera {
 	public ThirdPersonCamera(Transform focus) {
 		super();
 		this.focus = focus;
-		lookAtFocus();
+		lookAt(focus);
 	}
 
 	/**
@@ -36,11 +36,7 @@ public class ThirdPersonCamera extends Camera {
 	 */
 	public void setFocus(Transform focus) {
 		this.focus = focus;
-		lookAtFocus();
-	}
-	
-	private void lookAtFocus() {
-		transform.lookAt(focus);
+		lookAt(focus);
 	}
 	
 	/**
@@ -55,6 +51,6 @@ public class ThirdPersonCamera extends Camera {
 		transform.position.y = DISTANCE * 2 + focus.position.y;
 		transform.position.z = DISTANCE + focus.position.z;
 		transform.position.x = focus.position.x;
-		lookAtFocus();
+		lookAt(focus);
 	}
 }
