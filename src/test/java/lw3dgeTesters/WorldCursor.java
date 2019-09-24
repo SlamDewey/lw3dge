@@ -10,7 +10,7 @@ public class WorldCursor extends GraphicalEntity {
 	
 	
 	public WorldCursor() {
-		super(TexturedModels.BUNNY, new Transform(), new Vector3f(1, 1, 1));
+		super(TexturedModels.AIMER, new Transform(), new Vector3f(1f, 1f, 1f));
 	}
 	
 	@Override

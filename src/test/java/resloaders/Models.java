@@ -11,10 +11,14 @@ public class Models {
 	public static RawModel DRAGON_MODEL;
 	public static RawModel TREE_MODEL;
 	public static RawModel BUNNY_MODEL;
+	public static RawModel CAPSULE_MODEL;
+	public static RawModel AIMER_MODEL;
 	
 	public static void init() {
 		DRAGON_MODEL = OBJLoader.loadObjModel(Config.ABS_RESOURCE_PATH + "object_files/dragon.obj", DisplayManager.loader);
 		TREE_MODEL = OBJLoader.loadObjModel(Config.ABS_RESOURCE_PATH + "object_files/tree.obj", DisplayManager.loader);
 		BUNNY_MODEL = OBJLoader.loadObjModel(Config.ABS_RESOURCE_PATH + "object_files/bunny.obj", DisplayManager.loader);
+		CAPSULE_MODEL = OBJLoader.loadObjModel(Config.ABS_RESOURCE_PATH + "object_files/capsule.obj", DisplayManager.loader);
+		AIMER_MODEL = OBJLoader.loadObjModel(Config.ABS_RESOURCE_PATH + "object_files/capsule.obj", DisplayManager.loader);
 	}
 }

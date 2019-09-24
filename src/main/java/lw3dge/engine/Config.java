@@ -57,7 +57,7 @@ public class Config {
 	// center cursor on focus
 	public static boolean CENTER_CURSOR_ON_FOCUS = false;
 	// hide cursor on focus
-	public static boolean HIDE_CURSOR_ON_FOCUS = false;
+	public static boolean HIDE_CURSOR_ON_FOCUS = true;
 	/*
 	 * *********************************************************************
 	 * Absolute and relative file paths for the Engine
