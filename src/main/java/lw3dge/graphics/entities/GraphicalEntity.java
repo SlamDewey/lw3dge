@@ -34,6 +34,8 @@ public class GraphicalEntity implements Updatable {
 	 * The instructions on how big to draw this object
 	 */
 	protected Vector3f scale;
+	
+	public boolean shouldDelete = false;
 
 	/**
 	 * Create a new GraphicalEntity with these parameters
@@ -78,6 +80,14 @@ public class GraphicalEntity implements Updatable {
 		Matrix4f matrix = transform.toMatrix4f();
 		Matrix4f.scale(new Vector3f(scale.x, scale.y, scale.z), matrix, matrix);
 		return matrix;
+	}
+	
+	public void delete() {
+		shouldDelete = true;
+	}
+	//MAKE THIS ABSTRACT IN THE FUTURE AFTER DEBUGGING
+	public void onDelete() {
+		
 	}
 
 	public TexturedModel getTexturedModel() {

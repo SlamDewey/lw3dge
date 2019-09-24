@@ -3,6 +3,7 @@ package lw3dge.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import lw3dge.components.LinkedListNode;
 import lw3dge.components.Updatable;
 import lw3dge.components.physics.Transform;
 import lw3dge.game.cameras.Camera;
@@ -20,8 +21,9 @@ import lw3dge.graphics.entities.Light;
 public class Scene implements Updatable {
 
 	private Camera currentCamera;
-
-	public List<GraphicalEntity> entities = new ArrayList<GraphicalEntity>();
+	
+	public LinkedListNode<GraphicalEntity> firstEntity;
+	public LinkedListNode<GraphicalEntity> lastEntity;
 	public List<Terrain> terrains = new ArrayList<Terrain>();
 	public List<Light> lights = new ArrayList<Light>();
 
@@ -50,7 +52,34 @@ public class Scene implements Updatable {
 	 *            the GraphicalEntity to add
 	 */
 	public void addEntity(GraphicalEntity entity) {
-		entities.add(entity);
+		LinkedListNode<GraphicalEntity> toAdd = new LinkedListNode<GraphicalEntity>(entity);
+		if (firstEntity == null) {
+			firstEntity = toAdd;
+			return;
+		}
+		setLastEntity();
+		lastEntity.addAfter(toAdd);
+		lastEntity = toAdd;
+	}
+	public void delete(GraphicalEntity entity) {
+		LinkedListNode<GraphicalEntity> cur = firstEntity;
+		while (cur.getContent() != entity)
+			cur = cur.next;
+		if (entity == cur.getContent())
+			cur.delete();
+	}
+	/**
+	 * Cycle through all Linked Nodes, until hitting a node where node.next ==
+	 * null i.e. the last node. Then set the 'lastEntity' variable to reference
+	 * that node.
+	 */
+	public void setLastEntity() {
+		if (firstEntity == null)
+			return;
+		LinkedListNode<GraphicalEntity> cur = firstEntity;
+		while (cur.next != null)
+			cur = cur.next;
+		lastEntity = cur;
 	}
 
 	/**
@@ -79,8 +108,22 @@ public class Scene implements Updatable {
 	 * @see lw3dge.components.Updatable#tick()
 	 */
 	public void tick() {
-		for (GraphicalEntity e : entities) {
-			e.tick();
+
+		LinkedListNode<GraphicalEntity> cur = firstEntity;
+		while (cur != null) {
+			if (cur.getContent().shouldDelete) {
+				cur.getContent().onDelete();
+				if (cur.last != null) {
+					cur = cur.last;
+					cur.next.delete();
+				} 
+				else
+					firstEntity = cur.next;
+			}
+			else {
+				cur.getContent().tick();
+			}
+			cur = cur.next;
 		}
 		currentCamera.tick();
 	}

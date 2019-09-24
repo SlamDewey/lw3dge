@@ -41,7 +41,9 @@ public class ControlledEntity extends GraphicalEntity {
 			transform.position.x += speed * Time.deltaTime;
 
 		if (Mouse.buttons[GLFW.GLFW_MOUSE_BUTTON_1]) {
-			System.out.println("Clicked!");
+			Vector3f f = Vector3f.sub(aimer.transform.position, transform.position, null);
+			f.normalise();
+			Game.CURRENT_SCENE.addEntity(new Projectile(transform.position, f));
 		}
 		
 		lookAt(aimer.transform);

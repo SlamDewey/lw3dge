@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryStack;
 
+import lw3dge.components.LinkedListNode;
 import lw3dge.engine.Config;
 import lw3dge.engine.Log;
 import lw3dge.game.Game;
@@ -104,28 +105,31 @@ public class Display {
 	 * @see lw3dge.game.Time
 	 */
 	void loop(Loader loader, MasterRenderer mr) {
-		Scene cur;
+		Scene cur_scene;
 		long last_second, now, last_update;
 		last_update = 0;
 		last_update = last_second = System.nanoTime();
 		while (!glfwWindowShouldClose(window)) {
 			//setup
-			cur = Game.CURRENT_SCENE;
-			(MP = new MousePicker(cur.getCamera(), MasterRenderer.projectionMatrix, cur.terrains.get(0))).update();
+			cur_scene = Game.CURRENT_SCENE;
+			(MP = new MousePicker(cur_scene.getCamera(), MasterRenderer.projectionMatrix, cur_scene.terrains.get(0))).update();
 			now = System.nanoTime();
 			if (now - last_update >= UPDATE_INTERVAL) {
 				Time.set(now - last_update);
 				update_count++;
 				last_update += UPDATE_INTERVAL;
-				cur.tick();
+				cur_scene.tick();
 			}
 			//graphics updates
 			GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, Config.POLYGON_MODE);
-			for (Terrain t : cur.terrains)
+			for (Terrain t : cur_scene.terrains)
 				mr.processTerrain(t);
-			for (GraphicalEntity e : cur.entities)
-				mr.processEntity(e);
-			for (Light light : cur.lights)
+			LinkedListNode<GraphicalEntity> cur_entity = cur_scene.firstEntity;
+			while (cur_entity != null) {
+				mr.processEntity(cur_entity.getContent());
+				cur_entity = cur_entity.next;
+			}
+			for (Light light : cur_scene.lights)
 				mr.processLight(light);
 			mr.render();
 			//setup for next loop
