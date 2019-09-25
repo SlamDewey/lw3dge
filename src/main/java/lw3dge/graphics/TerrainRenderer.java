@@ -24,11 +24,13 @@ public class TerrainRenderer {
 		shader.stop();
 	}
 
+	int LOD = 0;
+	
 	public void render(List<Terrain> terrains) {
 		for (Terrain t : terrains) {
 			prepareTerrain(t);
 			shader.loadTransformationMatrix(t.getTransformationMatrix());
-			GL11.glDrawElements(GL11.GL_TRIANGLES, t.getModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+			GL11.glDrawElements(GL11.GL_TRIANGLES, t.getModel().getVertexCount(LOD), GL11.GL_UNSIGNED_INT, 0);			///
 			unbindTexturedModel();
 		}
 	}
@@ -39,7 +41,7 @@ public class TerrainRenderer {
 
 	private void prepareTerrain(Terrain terrain) {
 		RawModel rawModel = terrain.getModel();
-		GL30.glBindVertexArray(rawModel.getVaoID());
+		GL30.glBindVertexArray(rawModel.getVaoID(LOD));						///
 		GL20.glEnableVertexAttribArray(0);
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);

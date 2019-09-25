@@ -1,5 +1,6 @@
 package lw3dge.graphics.models;
 
+
 /**
  * This class represents a VAO as a Java Object Notice this class is FINAL and
  * therefore NOT editable after instantiation.
@@ -7,15 +8,21 @@ package lw3dge.graphics.models;
  * @author Jared Massa
  */
 public final class RawModel {
+	public static final int LOD_COUNT = 8;
 	
 	/**
 	 * The pointer to the VAO for OpenGL
 	 */
-	private int vaoID;
+	private int[] vaoIDs;
 	/**
 	 * The length of a portion in the VAO buffer
 	 */
-	private int vertexCount;
+	private int[] vertexCounts;
+	
+	public RawModel() {
+		this.vaoIDs = new int[LOD_COUNT];
+		this.vertexCounts = new int[LOD_COUNT];
+	}
 
 	/**
 	 * Create a new RawModel to reference a specified VAO
@@ -25,9 +32,19 @@ public final class RawModel {
 	 * @param vertexCount
 	 *            the vertex count of this model
 	 */
-	public RawModel(int vaoID, int vertexCount) {
-		this.vaoID = vaoID;
-		this.vertexCount = vertexCount;
+	public RawModel(int[] vaoIDs, int[] vertexCounts) {
+		this.vaoIDs = vaoIDs;
+		this.vertexCounts = vertexCounts;
+	}
+	
+	public void addVAO(int vaoID, int vertexCount) {
+		for (int i = 0; i < LOD_COUNT - 1; i++) {
+			if (vaoIDs[i] == 0) {
+				vaoIDs[i] = vaoID;
+				vertexCounts[i] = vertexCount;
+				return;
+			}
+		}
 	}
 
 	/**
@@ -35,8 +52,8 @@ public final class RawModel {
 	 * 
 	 * @return the VAO Pointer
 	 */
-	public int getVaoID() {
-		return vaoID;
+	public int getVaoID(int LOD) {
+		return vaoIDs[LOD];
 	}
 
 	/**
@@ -44,7 +61,7 @@ public final class RawModel {
 	 * 
 	 * @return the vertex count
 	 */
-	public int getVertexCount() {
-		return vertexCount;
+	public int getVertexCount(int LOD) {
+		return vertexCounts[LOD];
 	}
 }

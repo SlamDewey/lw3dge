@@ -123,29 +123,14 @@ public class Loader {
 	 *            in this model
 	 * @return the RawModel referencing the generated VAO pointer
 	 */
-	public RawModel loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices) {
+	public void loadToVAO(float[] positions, float[] textureCoords, float[] normals, int[] indices, RawModel model) {
 		int vaoID = createVAO();
 		bindIndicesBuffer(indices);
 		storeDataInAttributeList(0, 3, positions);
 		storeDataInAttributeList(1, 2, textureCoords);
 		storeDataInAttributeList(2, 3, normals);
 		unbindVAO();
-		return new RawModel(vaoID, indices.length);
-	}
-
-	/**
-	 * Load a VAO for a GUI 2D GUI Element
-	 * 
-	 * @deprecated until further notice
-	 * @param positions
-	 *            The GUI coordinates
-	 * @return a VAO for this GUI element
-	 */
-	public RawModel loadToVAO(float[] positions) {
-		int vaoID = createVAO();
-		this.storeDataInAttributeList(0, 2, positions);
-		unbindVAO();
-		return new RawModel(vaoID, positions.length / 2);
+		model.addVAO(vaoID, indices.length);
 	}
 
 	/**

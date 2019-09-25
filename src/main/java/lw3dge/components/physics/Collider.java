@@ -6,7 +6,6 @@ public abstract class Collider {
 	protected Vector3f position;
 	protected Vector3f rotation;
 	
-	public int dimensions;
 	
 	public Collider(Vector3f position, Vector3f rotation) {
 		this.position = position;

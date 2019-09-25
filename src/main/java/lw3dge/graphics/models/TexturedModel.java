@@ -31,6 +31,7 @@ public class TexturedModel {
 	public TexturedModel(RawModel model, ModelTexture texture) {
 		this.model = model;
 		this.texture = texture;
+		
 	}
 
 	/**
@@ -48,6 +49,8 @@ public class TexturedModel {
 	/**
 	 * Get the RawModel this object uses
 	 * 
+	 * @param LOD
+	 *            the level of detail for this model
 	 * @return the {@link RawModel}
 	 */
 	public RawModel getRawModel() {

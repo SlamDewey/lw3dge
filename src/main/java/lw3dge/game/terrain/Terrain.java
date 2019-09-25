@@ -81,7 +81,9 @@ public class Terrain {
 				indices[pointer++] = bottomRight;
 			}
 		}
-		return loader.loadToVAO(vertices, textureCoords, normals, indices);
+		RawModel model = new RawModel();
+		loader.loadToVAO(vertices, textureCoords, normals, indices, model);
+		return model;
 	}
 
 }

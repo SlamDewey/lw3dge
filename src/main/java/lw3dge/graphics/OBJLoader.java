@@ -83,7 +83,29 @@ public class OBJLoader {
 		for (int i = 0; i < indices.size(); i++) {
 			indicesA[i] = indices.get(i);
 		}
-		return loader.loadToVAO(verticesA, texturesA, normalsA, indicesA);
+		RawModel model = new RawModel();
+		loader.loadToVAO(verticesA, texturesA, normalsA, indicesA, model);
+		System.out.println("normalsA.leng: " + normalsA.length);
+		for (int i = 1; i < RawModel.LOD_COUNT - 1; i++) {
+			int[] newIndeArray = new int[(indicesA.length / (i + 1)) - 1];
+			float[] newVertArray = new float[(verticesA.length / (i + 1)) - 1];
+			float[] newTextArray = new float[(texturesA.length / (i + 1)) - 1];
+			float[] newNormArray = new float[(normalsA.length / (i + 1)) - 1];
+			for (int c = 0; c < newIndeArray.length; c++) {
+				newIndeArray[c] = indicesA[c * (i + 1)];
+			}
+			for (int c = 0; c < newVertArray.length; c++) {
+				newVertArray[c] = verticesA[c * (i + 1)];
+			}
+			for (int c = 0; c < newTextArray.length; c++) {
+				newTextArray[c] = texturesA[c * (i + 1)];
+			}
+			for (int c = 0; c < newNormArray.length; c++) {
+				newNormArray[c] = normalsA[c * (i + 1)];
+			}
+			loader.loadToVAO(newVertArray, newTextArray, newNormArray, newIndeArray, model);
+		}
+		return model;
 	}
 
 	private static void processVertex(String[] vertexData, List<Integer> indices, List<Vector2f> textures,

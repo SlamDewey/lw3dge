@@ -16,7 +16,8 @@ public class Log {
 			System.out.println(urgency_headers[urgency.ordinal()] + "[" + caller + "]\t" + msg);
 		else if (Config.DEBUG_MODE == LOG_SIMPLE) {
 			String prio = "";
-			if (urgency != LogLevel.DEBUG) prio = urgency_headers[urgency.ordinal()];
+			if (urgency != LogLevel.DEBUG)
+				prio = urgency_headers[urgency.ordinal()];
 			System.out.println(prio + "[" + caller + "]\t" + msg);
 		}
 	}

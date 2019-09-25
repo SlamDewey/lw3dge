@@ -46,6 +46,9 @@ public class EntityRenderer {
 		shader.loadProjectionMatrix(projectionMatrix);
 		shader.stop();
 	}
+	
+	//TEMPORARY
+	int LOD = 0;
 
 	/**
 	 * Render a set of entities based on the textured model of each entity
@@ -59,7 +62,7 @@ public class EntityRenderer {
 			List<GraphicalEntity> batch = entities.get(model);
 			for (GraphicalEntity entity : batch) {
 				shader.loadTransformationMatrix(entity.getTransformationMatrix());
-				GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+				GL11.glDrawElements(GL11.GL_TRIANGLES, model.getRawModel().getVertexCount(LOD), GL11.GL_UNSIGNED_INT, 0);		////
 			}
 			unbindTexturedModel();
 		}
@@ -71,7 +74,7 @@ public class EntityRenderer {
 
 	private void prepareTexturedModel(TexturedModel texturedModel) {
 		RawModel rawModel = texturedModel.getRawModel();
-		GL30.glBindVertexArray(rawModel.getVaoID());
+		GL30.glBindVertexArray(rawModel.getVaoID(LOD));							///
 		GL20.glEnableVertexAttribArray(0);
 		GL20.glEnableVertexAttribArray(1);
 		GL20.glEnableVertexAttribArray(2);
