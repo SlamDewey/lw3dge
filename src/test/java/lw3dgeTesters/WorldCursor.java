@@ -20,4 +20,16 @@ public class WorldCursor extends GraphicalEntity {
 		Vector3f pos = MousePicker.currentTerrainPoint;
 		transform.position.set(pos);
 	}
+
+	@Override
+	public void onDelete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollision(GraphicalEntity other) {
+		// TODO Auto-generated method stub
+		
+	}
 }

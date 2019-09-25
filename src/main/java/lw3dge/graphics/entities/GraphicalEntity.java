@@ -15,7 +15,7 @@ import lw3dge.graphics.models.TexturedModel;
  * @see lw3dge.components.physics.Transform
  * @see lw3dge.graphics.models.TexturedModel
  */
-public class GraphicalEntity implements Updatable {
+public abstract class GraphicalEntity implements Updatable {
 
 	/**
 	 * A scale with no variation in any axis
@@ -71,7 +71,18 @@ public class GraphicalEntity implements Updatable {
 	public void setTexturedModel(TexturedModel model) {
 		this.model = model;
 	}
-
+	
+	/**
+	 * Used to mark this Entity for deletion during the next scene tick.
+	 */
+	public void delete() {
+		shouldDelete = true;
+	}
+	
+	//to be overridden
+	public abstract void onDelete();
+	public abstract void onCollision(GraphicalEntity other);
+	
 	/*
 	 * Only Getters below
 	 ***************************************/
@@ -80,14 +91,6 @@ public class GraphicalEntity implements Updatable {
 		Matrix4f matrix = transform.toMatrix4f();
 		Matrix4f.scale(new Vector3f(scale.x, scale.y, scale.z), matrix, matrix);
 		return matrix;
-	}
-	
-	public void delete() {
-		shouldDelete = true;
-	}
-	//MAKE THIS ABSTRACT IN THE FUTURE AFTER DEBUGGING
-	public void onDelete() {
-		
 	}
 
 	public TexturedModel getTexturedModel() {

@@ -1,5 +1,8 @@
 package lw3dgeTesters;
 
+import entities.ControlledEntity;
+import entities.Dragon;
+import entities.Tree;
 import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
 import lw3dge.engine.Log;
@@ -7,7 +10,6 @@ import lw3dge.game.Game;
 import lw3dge.game.cameras.ThirdPersonCamera;
 import lw3dge.game.terrain.Terrain;
 import lw3dge.graphics.DisplayManager;
-import lw3dge.graphics.entities.GraphicalEntity;
 import lw3dge.graphics.entities.Light;
 import resloaders.Models;
 import resloaders.TexturedModels;
@@ -44,12 +46,10 @@ public class TestGame extends Game {
 	}
 	
 	public static void generate_dragon() {
-		t = new Transform(new Vector3f((float) (Math.random() * -200.0f) + 100f, 0, (float) (Math.random() * -100.0f)), 0);
-		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.DRAGON, t, new Vector3f(1, 1, 1)));
+		Game.CURRENT_SCENE.addEntity(new Dragon());
 	}
 	private void generate_tree() {
-		t = new Transform(new Vector3f((float) (Math.random() * 1600f) - 800f, 0, (float) (Math.random() * -800f)), 0);
-		Game.CURRENT_SCENE.addEntity(new GraphicalEntity(TexturedModels.TREE, t, new Vector3f(10, 10, 10)));
+		Game.CURRENT_SCENE.addEntity(new Tree());
 	}
 	private void set_lights() {
 		Light sun = new Light(new Vector3f(0, 1000, -50), new Vector3f(.8f, .8f, .8f));

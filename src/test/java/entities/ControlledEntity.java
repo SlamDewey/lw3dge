@@ -1,4 +1,4 @@
-package lw3dgeTesters;
+package entities;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -9,6 +9,7 @@ import lw3dge.game.Time;
 import lw3dge.game.input.Keyboard;
 import lw3dge.game.input.Mouse;
 import lw3dge.graphics.entities.GraphicalEntity;
+import lw3dgeTesters.WorldCursor;
 import resloaders.TexturedModels;
 
 public class ControlledEntity extends GraphicalEntity {
@@ -17,7 +18,7 @@ public class ControlledEntity extends GraphicalEntity {
 	private WorldCursor aimer = new WorldCursor();
 
 	public ControlledEntity(Transform transform) {
-		super(TexturedModels.BUNNY, transform, new Vector3f(1, 1, 1));
+		super(TexturedModels.CAPSULE, transform, new Vector3f(5, 5, 5));
 		transform.rotate(Transform.Y_AXIS, (float) Math.PI);
 
 		Game.CURRENT_SCENE.addEntity(aimer);
@@ -58,5 +59,17 @@ public class ControlledEntity extends GraphicalEntity {
 		if (f.x > 0) hang += quart_pi;
 		else hang += 3 * quart_pi;
 		transform.orientation.set(0, (float) (Math.sin(hang) * Math.cos(1)), 0, (float)Math.cos(hang));
+	}
+
+	@Override
+	public void onDelete() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollision(GraphicalEntity other) {
+		// TODO Auto-generated method stub
+		
 	}
 }

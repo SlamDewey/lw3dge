@@ -1,4 +1,4 @@
-package lw3dgeTesters;
+package entities;
 
 import lw3dge.components.math.Vector3f;
 import lw3dge.components.physics.Transform;
@@ -25,7 +25,12 @@ public class Projectile extends GraphicalEntity {
 	
 	@Override
 	public void onDelete() {
-		System.out.println("Deleted Projectile!");
+	}
+
+	@Override
+	public void onCollision(GraphicalEntity other) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
